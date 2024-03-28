@@ -1,13 +1,14 @@
 class Solution {
-public:
-    string shiftingLetters(string s, vector<int>& shifts) {
-        int n = shifts.size();
+    public String shiftingLetters(String s, int[] shifts) {
+        int n = shifts.length;
         for(int i=n-2; i>=0; i--) {
             shifts[i] += shifts[i+1]%26;
         }
-        for(int i=0; i<s.size(); i++) {
-            s[i] = (shifts[i]%26 + s[i] - 'a')%26 + 'a';
+        StringBuilder sb = new StringBuilder(s);
+        for(int i=0; i<s.length(); i++) {
+            char ch = (char) ('a' + (shifts[i] + s.charAt(i) - 'a')%26);
+            sb.setCharAt(i, ch);
         }
-        return s;
+        return sb.toString();
     }
-};
+}
