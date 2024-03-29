@@ -1,16 +1,15 @@
 class Solution {
-public:
-    long long countSubarrays(vector<int>& nums, int k) {
-        long long ans = 0;
-        int mx = *max_element(nums.begin(), nums.end());
-        for(long long high = 0, low = 0, count = 0; high < nums.size(); high++) {
+    public long countSubarrays(int[] nums, int k) {
+        long ans = 0, n = nums.length;
+        int mx = Arrays.stream(nums).max().getAsInt();
+        for(int high = 0, low = 0, count = 0; high < n; high++) {
             if(nums[high] == mx) count++;
             while(count >= k) {
                 if(nums[low] == mx) count--;
-                ans += (nums.size() - high);
+                ans += (n - high);
                 low++;
             }
         }
         return ans;
     }
-};
+}
