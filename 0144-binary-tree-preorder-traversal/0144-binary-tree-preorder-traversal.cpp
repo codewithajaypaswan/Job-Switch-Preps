@@ -12,14 +12,20 @@
 class Solution {
 public:
     vector<int>ans;
-    void dfs(TreeNode* root) {
-        if(!root) return;
-        ans.push_back(root->val);
-        dfs(root->left);
-        dfs(root->right);
-    }
     vector<int> preorderTraversal(TreeNode* root) {
-        dfs(root);
+        TreeNode* cur = root;
+        stack<TreeNode*>st;
+        while(!st.empty() || cur) {
+            if(cur != NULL) {
+                ans.push_back(cur->val);
+                st.push(cur);
+                cur = cur->left;
+            }
+            else {
+                cur = st.top(); st.pop();
+                cur = cur->right;
+            }
+        }
         return ans;
     }
 };
