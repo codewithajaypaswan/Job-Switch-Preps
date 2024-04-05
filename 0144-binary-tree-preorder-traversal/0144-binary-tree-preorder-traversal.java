@@ -14,15 +14,22 @@
  * }
  */
 class Solution {
-    void dfs(TreeNode root, List<Integer>list) {
-        if(root == null) return;
-        list.add(root.val);
-        dfs(root.left, list);
-        dfs(root.right, list);
-    }
     public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> list = new ArrayList<>();
-        dfs(root, list);
-        return list;
+        List<Integer>ans = new ArrayList<>();
+        Stack<TreeNode>stack = new Stack<TreeNode>();
+        TreeNode cur = new TreeNode();
+        cur = root;
+        while(cur != null || !stack.isEmpty()) {
+            if(cur != null) {
+                ans.add(cur.val);
+                stack.push(cur);
+                cur = cur.left;
+            }
+            else {
+                cur = stack.pop();
+                cur = cur.right;
+            }
+        }
+        return ans;
     }
 }
