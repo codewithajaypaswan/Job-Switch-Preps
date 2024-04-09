@@ -1,27 +1,23 @@
 class Solution {
 public:
-    int find(int u, vector<int>&parent) {
-        if(parent[u] == -1) return u;
-        return parent[u] = find(parent[u], parent);
-    }
-    bool _union(int u, int v, vector<int>&parent) {
-        int pu = find(u, parent);
-        int pv = find(v, parent);
-        if(pu == pv) return false;
-        parent[pv] = pu;
-        return true;
-    }
-    int removeStones(vector<vector<int>>& stones) {
-        int n = stones.size();
-        int cnt = 0;
-        vector<int>parent(n+1, -1);
-        for(int i=0; i<n; i++) {
-            for(int j=i+1; j<n; j++) {
-                if(stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1]) {
-                    if(_union(i, j, parent)) cnt++;
-                }
+    int dfs(vector<vector<int>>&stones, int cur, vector<int>&visited) {
+        if(visited[cur]) return 0;
+        visited[cur] = 1;
+        int ans = 0;
+        for(int i=0; i<stones.size(); i++) {
+            if(!visited[i] && (stones[i][0] == stones[cur][0] || stones[i][1] == stones[cur][1])) {
+                ans += dfs(stones, i, visited) + 1;
             }
         }
-        return cnt;
+        return ans;
+    }
+    int removeStones(vector<vector<int>>& stones) {
+        int n = stones.size(), ans = 0;
+        vector<int>visited(n, 0);
+        for(int i=0; i<n; i++) {
+            if(visited[i]) continue;
+            ans += dfs(stones, i, visited);
+        }
+        return ans;
     }
 };
