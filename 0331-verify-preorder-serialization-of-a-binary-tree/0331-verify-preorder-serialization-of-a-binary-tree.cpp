@@ -1,15 +1,20 @@
 class Solution {
 public:
     bool isValidSerialization(string preorder) {
-        if(preorder.empty()) return true;
-        preorder += ',';
-        int cnt = 1;
-        for(int i=0; i<preorder.size(); i++) {
-            if(preorder[i] != ',') continue;
-            cnt--;
-            if(cnt < 0) return false;
-            if(preorder[i-1] != '#') cnt += 2;
+        stringstream s(preorder);
+        stack<string>st;
+        string str;
+        while(getline(s, str, ',')) {
+            if(st.empty() || str != "#") st.push(str);
+            else {
+                while(!st.empty() && st.top() == "#") {
+                    st.pop();
+                    if(st.empty()) return false;
+                    else st.pop();
+                }
+                st.push(str);
+            }
         }
-        return cnt == 0;
+        return st.size() == 1 && st.top() == "#";
     }
 };
