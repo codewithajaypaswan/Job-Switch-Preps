@@ -24,7 +24,7 @@ public:
                 TreeNode* node = st.top();
                 if(node->right && node->right != last) {
                     cur = node->right;
-                }
+                } 
                 else {
                     ans.push_back(node->val);
                     last = node;
