@@ -15,13 +15,13 @@ public:
     int ans = 0;
     int pathSum(TreeNode* root, int targetSum) {
         if(root && !root->left && !root->right) return root->val == targetSum;
+        mp[0] = 1;
         dfs(root, targetSum, 0);
         return ans;
     }
     void dfs(TreeNode* root, int targetSum, long sum) {
         if(!root) return;
         sum += root->val;
-        if(sum == targetSum) ans++;
         if(mp.find(sum - targetSum) != mp.end()) {
             ans += mp[sum - targetSum];
         }
