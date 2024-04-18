@@ -11,20 +11,19 @@
  */
 class Solution {
 public:
-    vector<int> rightSideView(TreeNode* root) {
-        vector<int>ans;
-        queue<TreeNode*>q;
-        if(root == NULL) return ans;
-        q.push(root);
-        while(!q.empty()) {
-            int sz = q.size();
-            for(int i=0; i<sz; i++) {
-                TreeNode* cur = q.front(); q.pop();
-                if(i == 0) ans.push_back(cur->val);
-                if(cur->right) q.push(cur->right);
-                if(cur->left) q.push(cur->left);
-            }
+    vector<int>ans;
+    int maxDepth = -1;
+    void dfs(TreeNode* root, int depth) {
+        if(!root) return;
+        if(depth > maxDepth) {
+            ans.push_back(root->val);
+            maxDepth = depth;
         }
+        dfs(root->right, depth+1);
+        dfs(root->left, depth+1);
+    }
+    vector<int> rightSideView(TreeNode* root) {
+        dfs(root, 0);
         return ans;
     }
 };
