@@ -11,10 +11,10 @@
  */
 class Solution {
 public:
-    bool dfs(TreeNode* root, int target) {
+    bool dfs(TreeNode* root, int targetSum) {
         if(!root) return false;
-        if(!root->left && !root->right) return root->val == target;
-        return dfs(root->left, target - root->val) || dfs(root->right, target - root->val);
+        if(!root->left && !root->right) return root->val == targetSum;
+        return dfs(root->left, targetSum - root->val) || dfs(root->right, targetSum - root->val);
     }
     bool hasPathSum(TreeNode* root, int targetSum) {
         return dfs(root, targetSum);
