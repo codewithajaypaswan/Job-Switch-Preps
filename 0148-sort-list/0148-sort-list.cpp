@@ -9,7 +9,7 @@
  * };
  */
 class Solution {
-public:  
+public:
     ListNode* merge(ListNode* l1, ListNode* l2) {
         ListNode* dummy = new ListNode(0);
         ListNode* cur = dummy;
@@ -28,23 +28,23 @@ public:
         return dummy->next;
     }
     ListNode* findMid(ListNode* head) {
-        if(!head || !head->next) return head;
+        if(!head) return head;
         ListNode* slow = head, *fast = head->next;
         while(fast && fast->next) {
-            slow = slow->next;
             fast = fast->next->next;
+            slow = slow->next;
         }
         return slow;
     }
     ListNode* mergeSort(ListNode* head) {
         if(!head || !head->next) return head;
-        ListNode* l1 = head;
+        ListNode* a = head;
         ListNode* mid = findMid(head);
-        ListNode* l2 = mid->next;
+        ListNode* b = mid->next;
         mid->next = NULL;
-        l1 = mergeSort(l1);
-        l2 = mergeSort(l2);
-        ListNode* temp = merge(l1, l2);
+        a = mergeSort(a);
+        b = mergeSort(b);
+        ListNode* temp = merge(a, b);
         return temp;
     }
     ListNode* sortList(ListNode* head) {
