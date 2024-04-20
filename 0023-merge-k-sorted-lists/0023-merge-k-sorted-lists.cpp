@@ -28,7 +28,7 @@ public:
         return dummy->next;
     }
     ListNode* solve(vector<ListNode*>&lists, int cur) {
-        if(lists.size() - 1 == cur) return lists[cur];
+        if(cur == lists.size() - 1) return lists[cur];
         ListNode* a = solve(lists, cur+1);
         ListNode* b = lists[cur];
         a = mergeTwoLists(a, b);
