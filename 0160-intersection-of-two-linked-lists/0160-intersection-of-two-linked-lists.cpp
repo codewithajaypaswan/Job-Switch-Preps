@@ -19,17 +19,12 @@ public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         int cnt1 = count(headA);
         int cnt2 = count(headB);
-        if(cnt1 > cnt2) {
-            while(headA && cnt1 > cnt2) {
-                headA = headA->next;
-                cnt1--;
-            }
+        if(cnt1 < cnt2) {
+            swap(headA, headB);
         }
-        else if(cnt2 > cnt1) {
-            while(headB && cnt2 > cnt1) {
-                headB = headB->next;
-                cnt2--;
-            }
+        int dif = abs(cnt1 - cnt2);
+        while(dif--) {
+            headA = headA->next;
         }
         while(headA != headB) {
             headA = headA->next;
