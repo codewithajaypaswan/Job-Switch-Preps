@@ -32,6 +32,7 @@ public:
             cur->next = cur->child;
             cur->child->prev = cur;
             cur->child = NULL;
+            cur = cur->next;
         }
         return head;
     }
