@@ -11,23 +11,23 @@
  */
 class Solution {
 public:
-    int xDepth = -1, yDepth = -1;
-    void dfs(TreeNode* root, int x, int y, int depth, TreeNode* parent) {
+    int xDepth = -1, yDepth = -2;
+    TreeNode* xParent = NULL, *yParent = NULL;
+    void dfs(TreeNode* root, int x, int y, TreeNode* parent, int depth) {
         if(!root) return;
         if(root->val == x) {
-            xDepth = depth;
             xParent = parent;
+            xDepth = depth;
         }
         if(root->val == y) {
-            yDepth = depth;
             yParent = parent;
+            yDepth = depth;
         }
-        dfs(root->left, x, y, depth + 1, root);
-        dfs(root->right, x, y, depth + 1, root);
+        dfs(root->left, x, y, root, depth + 1);
+        dfs(root->right, x, y, root, depth + 1);
     }
-    TreeNode* xParent = NULL, *yParent = NULL;
     bool isCousins(TreeNode* root, int x, int y) {
-        dfs(root, x, y, 0, NULL);
+        dfs(root, x, y, NULL, 0);
         return xDepth == yDepth && xParent != yParent;
     }
 };
