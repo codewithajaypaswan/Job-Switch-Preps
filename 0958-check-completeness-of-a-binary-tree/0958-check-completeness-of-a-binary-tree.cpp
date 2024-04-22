@@ -14,7 +14,7 @@ public:
     unsigned long long sum = 0, count = 0;
     bool isCompleteTree(TreeNode* root) {
         dfs(root, 1LL);
-        return (count * (count + 1))/2 == sum;
+        return count * (count + 1)/2 == sum;
     }
     void dfs(TreeNode* root, unsigned long long label) {
         if(!root) return;
