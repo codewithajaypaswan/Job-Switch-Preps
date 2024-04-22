@@ -11,17 +11,26 @@
  */
 class Solution {
 public:
-    TreeNode* insertIntoBST(TreeNode* root, int val) {
-        return dfs(root, val);
-    }
-    TreeNode* dfs(TreeNode* root, int val) {
-        if(!root) return new TreeNode(val);
-        if(root->val > val) {
-            root->left = dfs(root->left, val);
+    void dfs(TreeNode* root, int val) {
+        if(!root) return;
+        if(root->val < val) {
+            if(!root->right) {
+                root->right = new TreeNode(val);
+                return;
+            }
+            dfs(root->right, val);
         }
         else {
-            root->right = dfs(root->right, val);
+            if(!root->left) {
+                root->left = new TreeNode(val);
+                return;
+            }
+            dfs(root->left, val);
         }
+    }
+    TreeNode* insertIntoBST(TreeNode* root, int val) {
+        if(!root) return new TreeNode(val);
+        dfs(root, val);
         return root;
     }
 };
