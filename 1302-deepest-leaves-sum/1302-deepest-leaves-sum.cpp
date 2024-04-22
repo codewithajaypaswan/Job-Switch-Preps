@@ -11,21 +11,18 @@
  */
 class Solution {
 public:
+    int maxDepth = 0;
+    int depth(TreeNode* root) {
+        if(!root) return 0;
+        return 1 + max(depth(root->left), depth(root->right));
+    }
+    int dfs(TreeNode* root, int d) {
+        if(!root) return 0;
+        if(d == maxDepth) return root->val;
+        return dfs(root->left, d+1) + dfs(root->right, d+1);
+    }
     int deepestLeavesSum(TreeNode* root) {
-        int ans = 0;
-        queue<TreeNode*>q;
-        q.push(root);
-        while(!q.empty()) {
-            int sz = q.size();
-            int temp = 0;
-            while(sz--) {
-                TreeNode* cur = q.front(); q.pop();
-                temp += cur->val;
-                if(cur->left) q.push(cur->left);
-                if(cur->right) q.push(cur->right);
-            }
-            ans = temp;
-        }
-        return ans;
+        maxDepth = depth(root);
+        return dfs(root, 1);
     }
 };
