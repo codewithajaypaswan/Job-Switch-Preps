@@ -20,17 +20,35 @@ class Solution {
 public:
     Node* connect(Node* root) {
         if(!root) return root;
-        queue<Node*>q;
-        q.push(root);
-        q.push(NULL);
-        while(!q.empty()) {
-            Node* cur = q.front(); q.pop();
-            if(cur == NULL && q.empty()) return root;
-            if(cur == NULL && !q.empty()) q.push(NULL);
-            else {
-                cur->next = q.front();
-                if(cur->left) q.push(cur->left);
-                if(cur->right) q.push(cur->right);
+        Node* head, *tail;
+        head = tail = NULL;
+        Node* cur = root;
+        while(cur) {
+            if(cur->left) {
+                if(tail) {
+                    tail->next = cur->left;
+                    tail = tail->next;
+                }
+                else {
+                    tail = cur->left;
+                    head = tail;
+                }
+            }
+            
+            if(cur->right) {
+                if(tail) {
+                    tail->next = cur->right;
+                    tail = tail->next;
+                }
+                else {
+                    tail = cur->right;
+                    head = tail;
+                }
+            }
+            cur = cur->next;
+            if(cur == NULL) {
+                cur = head;
+                head = tail = NULL;
             }
         }
         return root;
