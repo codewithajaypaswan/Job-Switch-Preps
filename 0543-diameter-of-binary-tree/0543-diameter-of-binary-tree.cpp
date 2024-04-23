@@ -14,10 +14,10 @@ public:
     int ans = INT_MIN;
     int dfs(TreeNode* root) {
         if(!root) return 0;
-        int ld = dfs(root->left);
-        int rd = dfs(root->right);
-        ans = max(ans, ld + rd);
-        return max(ld, rd) + 1;
+        int lh = dfs(root->left);
+        int rh = dfs(root->right);
+        ans = max(ans, lh + rh);
+        return max(lh, rh) + 1;
     }
     int diameterOfBinaryTree(TreeNode* root) {
         dfs(root);
