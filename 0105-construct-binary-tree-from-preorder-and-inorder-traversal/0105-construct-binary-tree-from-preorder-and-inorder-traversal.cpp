@@ -18,15 +18,15 @@ public:
         for(int i=0; i<n; i++) {
             mp[inorder[i]] = i;
         }
-        return dfs(preorder, 0, n-1);
+        return solve(preorder, 0, n-1);
     }
-    TreeNode* dfs(vector<int>&preorder, int low, int high) {
+    TreeNode* solve(vector<int>&preorder, int low, int high) {
         if(low > high) return NULL;
         TreeNode* cur = new TreeNode(preorder[preInd]);
-        int mid = mp[preorder[preInd]];
+        int index = mp[preorder[preInd]];
         preInd++;
-        cur->left = dfs(preorder, low, mid-1);
-        cur->right = dfs(preorder, mid+1, high);
+        cur->left = solve(preorder, low, index-1);
+        cur->right = solve(preorder, index+1, high);
         return cur;
     }
 };
