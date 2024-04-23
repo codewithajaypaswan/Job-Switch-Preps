@@ -13,14 +13,14 @@ class Solution {
 public:
     TreeNode* sortedArrayToBST(vector<int>& nums) {
         int n = nums.size();
-        return dfs(nums, 0, n-1);
+        return solve(nums, 0, n-1);
     }
-    TreeNode* dfs(vector<int>&nums, int low, int high) {
+    TreeNode* solve(vector<int>&nums, int low, int high) {
         if(low > high) return NULL;
         int mid = (low + high)/2;
         TreeNode* cur = new TreeNode(nums[mid]);
-        cur->left = dfs(nums, low, mid-1);
-        cur->right = dfs(nums, mid+1, high);
+        cur->left = solve(nums, low, mid-1);
+        cur->right = solve(nums, mid+1, high);
         return cur;
     }
 };
