@@ -23,10 +23,10 @@ public:
     TreeNode* solve(vector<int>&preorder, int low, int high) {
         if(low > high) return NULL;
         TreeNode* cur = new TreeNode(preorder[preInd]);
-        int index = mp[preorder[preInd]];
+        int mid = mp[preorder[preInd]];
         preInd++;
-        cur->left = solve(preorder, low, index-1);
-        cur->right = solve(preorder, index+1, high);
+        cur->left = solve(preorder, low, mid-1);
+        cur->right = solve(preorder, mid+1, high);
         return cur;
     }
 };
