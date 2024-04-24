@@ -3,7 +3,6 @@ public:
     int arrayNesting(vector<int>& nums) {
         int n = nums.size();
         int ans = 0;
-        vector<bool>vis(n, false);
         for(int i=0; i<n; i++) {
             if(nums[i] == -1) continue;
             int cnt = 0, cur = i;
