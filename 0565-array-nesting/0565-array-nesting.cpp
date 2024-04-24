@@ -5,12 +5,13 @@ public:
         int ans = 0;
         vector<bool>vis(n, false);
         for(int i=0; i<n; i++) {
-            if(vis[i] == true) continue;
-            int cnt = 0;
-            while(vis[i] == false) {
-                vis[i] = true;
+            if(nums[i] == -1) continue;
+            int cnt = 0, cur = i;
+            while(nums[cur] != -1) {
+                int next = nums[cur];
+                nums[cur] = -1;
+                cur = next;
                 cnt++;
-                i = nums[i];
             }
             ans = max(ans, cnt);
         }
