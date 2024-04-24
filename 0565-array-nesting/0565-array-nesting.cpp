@@ -1,18 +1,17 @@
 class Solution {
 public:
+    int dfs(vector<int>&nums, int cur) {
+        if(nums[cur] == -1) return 0;
+        int next = nums[cur];
+        nums[cur] = -1;
+        return 1 + dfs(nums, next);
+    }
     int arrayNesting(vector<int>& nums) {
-        int n = nums.size();
-        int ans = 0;
+        int n = nums.size(), ans = 0;
         for(int i=0; i<n; i++) {
-            if(nums[i] == -1) continue;
-            int cnt = 0, cur = i;
-            while(nums[cur] != -1) {
-                int next = nums[cur];
-                nums[cur] = -1;
-                cur = next;
-                cnt++;
+            if(nums[i] != -1) {
+                ans = max(ans, dfs(nums, i));
             }
-            ans = max(ans, cnt);
         }
         return ans;
     }
