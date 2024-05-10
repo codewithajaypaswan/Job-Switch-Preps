@@ -24,7 +24,7 @@ public:
         }
         ListNode* temp = slow->next;
         slow->next = temp->next;
-        temp->next = NULL;
+        temp->next = nullptr;
         delete temp;
         return dummy->next;
     }
