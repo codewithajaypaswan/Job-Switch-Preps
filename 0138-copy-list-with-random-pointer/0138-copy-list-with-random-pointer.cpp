@@ -35,11 +35,11 @@ public:
         }
         Node* dummy = new Node(0);
         Node* org = head, *dup = dummy;
-        while(org) {
+        while(org && dup) {
             dup->next = org->next;
             org->next = org->next->next;
-            dup = dup->next;
             org = org->next;
+            dup = dup->next;
         }
         return dummy->next;
     }
