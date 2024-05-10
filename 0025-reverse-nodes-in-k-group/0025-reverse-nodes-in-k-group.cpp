@@ -23,7 +23,7 @@ public:
     ListNode* reverseKGroup(ListNode* head, int k) {
         ListNode* node = head;
         for(int i=0; i<k; i++) {
-            if(!node) return head;
+            if(node == nullptr) return head;
             node = node->next;
         }
         ListNode* newHead = reverse(head, node);
