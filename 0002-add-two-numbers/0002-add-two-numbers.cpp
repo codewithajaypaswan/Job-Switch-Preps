@@ -15,19 +15,18 @@ public:
         ListNode* head = dummy;
         int carry = 0;
         while(l1 || l2) {
-            int v1 = l1 ? l1->val : 0;
-            int v2 = l2 ? l2->val : 0;
-            int val = v1 + v2 + carry;
-            carry = val/10;
-            ListNode* cur = new ListNode(val%10);
+            int val1 = l1 ? l1->val : 0;
+            int val2 = l2 ? l2->val : 0;
+            int v = val1 + val2 + carry;
+            ListNode* cur = new ListNode(v%10);
+            carry = v/10;
             head->next = cur;
             head = head->next;
             l1 = l1 ? l1->next : NULL;
             l2 = l2 ? l2->next : NULL;
         }
         if(carry) {
-            ListNode* cur = new ListNode(carry%10);
-            head->next = cur;
+            head->next = new ListNode(carry);
         }
         return dummy->next;
     }
