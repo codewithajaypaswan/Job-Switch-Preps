@@ -19,8 +19,8 @@ public:
         slow = reverse(slow);
         while(slow) {
             if(slow->val != head->val) return false;
-            slow = slow->next;
             head = head->next;
+            slow = slow->next;
         }
         return true;
     }
