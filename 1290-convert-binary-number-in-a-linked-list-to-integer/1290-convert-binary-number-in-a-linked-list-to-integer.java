@@ -9,18 +9,23 @@
  * }
  */
 class Solution {
-    public int getDecimalValue(ListNode head) {
-        int ans = 0, len = 0;
-        ListNode cur = head;
+    ListNode reverse(ListNode head) {
+        ListNode cur = head, prev = null;
         while(cur != null) {
-            cur = cur.next;
-            len++;
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
         }
-        cur = head;
-        while(cur != null) {
-            ans += (1<<(len-1)) * cur.val;
-            cur = cur.next;
-            len--;
+        return prev;
+    }
+    public int getDecimalValue(ListNode head) {
+        int ans = 0, i = 0;
+        head = reverse(head);
+        while(head != null) {
+            ans += (1<<i) * head.val;
+            i++;
+            head = head.next;
         }
         return ans;
     }
