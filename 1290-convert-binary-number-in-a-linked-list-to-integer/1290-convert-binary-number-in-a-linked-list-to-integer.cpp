@@ -10,23 +10,19 @@
  */
 class Solution {
 public:
-    ListNode* reverse(ListNode* head) {
-        ListNode* cur = head, *prev = NULL;
-        while(cur) {
-            ListNode* next = cur->next;
-            cur->next = prev;
-            prev = cur;
-            cur = next;
-        }
-        return prev;
-    }
     int getDecimalValue(ListNode* head) {
-        head = reverse(head);
-        int ans = 0, i = 0;
-        while(head) {
-            ans += (1<<i) * head->val;
-            i++;
-            head = head->next;
+        ListNode* cur = head;
+        int len = 0;
+        while(cur) {
+            cur = cur->next;
+            len++;
+        }
+        int ans = 0;
+        cur = head;
+        while(cur) {
+            ans += (1<<(len - 1)) * cur->val;
+            len--;
+            cur = cur->next;
         }
         return ans;
     }
