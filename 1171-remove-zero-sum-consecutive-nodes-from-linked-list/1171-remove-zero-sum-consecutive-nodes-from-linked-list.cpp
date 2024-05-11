@@ -21,15 +21,14 @@ public:
         while(cur) {
             sum += cur->val;
             if(mp.find(sum) != mp.end()) {
-                ListNode* prev = mp[sum];
-                ListNode* start = prev;
-                int temp_sum = sum;
-                while(prev != cur) {
+                ListNode* prev = mp[sum]->next;
+                int temp_sum = sum + prev->val;
+                while(temp_sum != sum) {
+                    mp.erase(temp_sum);
                     prev = prev->next;
                     temp_sum += prev->val;
-                    if(prev != cur) mp.erase(temp_sum);
                 }
-                start->next = cur->next;
+                mp[sum]->next = cur->next;
             }
             else {
                 mp[sum] = cur;
