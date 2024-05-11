@@ -21,13 +21,10 @@
  */
 class Solution {
 public:
-    TreeNode* sortedListToBST(ListNode* head) {
-        return solve(head, NULL);
-    }
     TreeNode* solve(ListNode* head, ListNode* tail) {
         if(head == tail) return NULL;
         if(head->next == tail) return new TreeNode(head->val);
-        ListNode* slow = head, *fast = head->next;
+        ListNode* fast = head->next, *slow = head;
         while(fast != tail && fast->next != tail) {
             fast = fast->next->next;
             slow = slow->next;
@@ -36,5 +33,9 @@ public:
         cur->left = solve(head, slow);
         cur->right = solve(slow->next, tail);
         return cur;
+    }
+    TreeNode* sortedListToBST(ListNode* head) {
+        if(!head) return NULL;
+        return solve(head, NULL);
     }
 };
