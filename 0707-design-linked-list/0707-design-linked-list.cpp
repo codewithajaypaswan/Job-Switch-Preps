@@ -1,27 +1,27 @@
 class Node {
 public:
     int val;
-    Node* next;
-    Node(int x) {
-        val = x;
+    Node *next;
+    Node(int val) {
+        this->val = val;
         next = NULL;
     }
 };
 class MyLinkedList {
 public:
-    Node* head;
     int size = 0;
+    Node* head;
     MyLinkedList() {
         head = new Node(0);
     }
     
     int get(int index) {
         if(index >= size) return -1;
-        Node* cur = head;
+        Node* temp = head;
         for(int i=0; i<=index; i++) {
-            cur = cur->next;
+            temp = temp->next;
         }
-        return cur->val;
+        return temp->val;
     }
     
     void addAtHead(int val) {
@@ -33,7 +33,7 @@ public:
     
     void addAtTail(int val) {
         Node* temp = head;
-        while(temp->next != NULL) {
+        while(temp->next) {
             temp = temp->next;
         }
         temp->next = new Node(val);
@@ -46,23 +46,24 @@ public:
         for(int i=0; i<index; i++) {
             temp = temp->next;
         }
-        Node* p1 = temp->next;
+        Node* p = temp->next;
         temp->next = new Node(val);
-        temp->next->next = p1;
+        temp->next->next = p;
         size++;
     }
     
     void deleteAtIndex(int index) {
         if(index >= size) return;
+        Node* s = head;
         Node* temp = head;
         for(int i=0; i<index; i++) {
             temp = temp->next;
         }
-        Node* del = temp->next;
-        temp->next = del->next;
-        del->next = NULL;
-        delete del;
+        Node* p = temp->next;
+        temp->next = p->next;
+        p->next = NULL;
         size--;
+        delete p;
     }
 };
 
