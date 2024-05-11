@@ -28,8 +28,8 @@ public:
         return dummy->next;
     }
     ListNode* findMid(ListNode* head) {
-        if(!head) return head;
-        ListNode* slow = head, *fast = head->next;
+        if(!head || !head->next) return head;
+        ListNode* fast = head->next, *slow = head;
         while(fast && fast->next) {
             fast = fast->next->next;
             slow = slow->next;
@@ -38,14 +38,14 @@ public:
     }
     ListNode* mergeSort(ListNode* head) {
         if(!head || !head->next) return head;
-        ListNode* a = head;
         ListNode* mid = findMid(head);
         ListNode* b = mid->next;
         mid->next = NULL;
+        ListNode* a = head;
         a = mergeSort(a);
         b = mergeSort(b);
-        ListNode* temp = merge(a, b);
-        return temp;
+        head = merge(a, b);
+        return head;
     }
     ListNode* sortList(ListNode* head) {
         return mergeSort(head);
