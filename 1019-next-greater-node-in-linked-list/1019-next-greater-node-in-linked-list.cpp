@@ -11,22 +11,22 @@
 class Solution {
 public:
     vector<int> nextLargerNodes(ListNode* head) {
-        int n = 0, i = 0;
-        ListNode* temp = head;
-        while(temp) {
-            temp = temp->next;
+        int n = 0;
+        ListNode* cur = head;
+        while(cur) {
             n++;
+            cur = cur->next;
         }
         vector<int>ans(n, 0);
-        stack<pair<int,int>>st;
-        temp = head;
-        while(temp) {
-            while(!st.empty() && st.top().first < temp->val) {
-                ans[st.top().second] = temp->val;
+        stack<pair<int, int>>st;
+        cur = head;
+        for(int i=0; i<n; i++) {
+            while(!st.empty() && st.top().first < cur->val) {
+                ans[st.top().second] = cur->val;
                 st.pop();
             }
-            st.push({temp->val, i});
-            i++; temp = temp->next;
+            st.push({cur->val, i});
+            cur = cur->next;
         }
         return ans;
     }
