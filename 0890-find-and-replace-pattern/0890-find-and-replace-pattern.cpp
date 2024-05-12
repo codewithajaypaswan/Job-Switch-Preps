@@ -2,29 +2,30 @@ class Solution {
 public:
     vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
         vector<string>ans;
-        string s = normalize(pattern);
+        pattern = normalize(pattern);
         for(string w:words) {
-            if(normalize(w) == s) {
+            if(pattern == normalize(w)) {
                 ans.push_back(w);
             }
         }
         return ans;
     }
-    string normalize(string s) {
-        string str = "";
-        int cnt = 0;
+    
+    string normalize(string &str) {
         unordered_map<char, char>mp;
-        for(char c:s) {
+        int cnt = 0;
+        string ans = "";
+        for(auto c:str) {
             if(mp.find(c) != mp.end()) {
-                str += mp[c];
+                ans += mp[c];
             }
             else {
-                char ch = (cnt + 'a');
+                char ch = ('a' + cnt);
+                ans += ch;
                 cnt++;
                 mp[c] = ch;
-                str += ch;
             }
         }
-        return str;
+        return ans;
     }
 };
