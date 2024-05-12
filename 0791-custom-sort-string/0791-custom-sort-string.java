@@ -1,6 +1,6 @@
 class Solution {
     public String customSortString(String order, String s) {
-        Map<Character, Integer>mp = new HashMap<>();
+        HashMap<Character, Integer>mp = new HashMap<>();
         for(int i=0; i<s.length(); i++) {
             mp.put(s.charAt(i), mp.getOrDefault(s.charAt(i), 0) + 1);
         }
@@ -21,8 +21,15 @@ class Solution {
         //     }
         //     it.remove();
         // }
-        for(char c : mp.keySet()) {
-            for(int i=0; i<mp.get(c); i++) {
+        // for(char c : mp.keySet()) {
+        //     for(int i=0; i<mp.get(c); i++) {
+        //         sb.append(c);
+        //     }
+        // }
+        for(Map.Entry<Character, Integer> e : mp.entrySet()) {
+            char c = e.getKey();
+            int cnt = e.getValue();
+            for(int i=0; i<cnt; i++) {
                 sb.append(c);
             }
         }
