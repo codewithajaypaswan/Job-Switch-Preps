@@ -13,6 +13,14 @@ class Solution {
                 mp.remove(c);
             }
         }
+        // Iterator<Character> it = mp.keySet().iterator();
+        // while(it.hasNext()) {
+        //     char c = it.next();
+        //     for(int i=0; i<mp.get(c); i++) {
+        //         sb.append(c);
+        //     }
+        //     it.remove();
+        // }
         for(char c : mp.keySet()) {
             for(int i=0; i<mp.get(c); i++) {
                 sb.append(c);
