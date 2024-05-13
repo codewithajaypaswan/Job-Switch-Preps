@@ -1,13 +1,15 @@
 class Solution {
 public:
     bool isHappy(int n) {
-        unordered_map<int, int>mp;
-        while(n != 1) {
-            if(mp.find(n) != mp.end()) return false;
-            mp[n]++;
-            n = next(n);
+        int fast = n, slow = n;
+        while(fast && slow) {
+            fast = next(fast);
+            fast = next(fast);
+            slow = next(slow);
+            if(fast == 1) return true;
+            if(fast == slow) return false;
         }
-        return true;
+        return false;
     }
     int next(int n) {
         int ans = 0;
