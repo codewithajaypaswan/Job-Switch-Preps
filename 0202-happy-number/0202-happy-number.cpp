@@ -1,23 +1,19 @@
 class Solution {
 public:
-    
     bool isHappy(int n) {
-        if(n == 1) return true;
-        int fast = n , slow = n;
-        while(true) {
-            fast = getNext(fast);
-            fast = getNext(fast);
-            slow = getNext(slow);
-            if(fast == 1) return true;
-            if(slow == fast) break;
+        unordered_map<int, int>mp;
+        while(n != 1) {
+            if(mp.find(n) != mp.end()) return false;
+            mp[n]++;
+            n = next(n);
         }
-        return false;
+        return true;
     }
-    int getNext(int n) {
+    int next(int n) {
         int ans = 0;
         while(n > 0) {
             int rem = n%10;
-            ans += rem * rem;
+            ans += rem*rem;
             n = n/10;
         }
         return ans;
