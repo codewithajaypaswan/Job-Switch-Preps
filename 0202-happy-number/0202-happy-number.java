@@ -1,12 +1,14 @@
 class Solution {
     public boolean isHappy(int n) {
-        HashMap<Integer, Integer>mp = new HashMap<>();
-        while(n != 1) {
-            if(mp.containsKey(n)) return false;
-            mp.put(n, 1);
-            n = next(n);
+        int fast = n, slow = n;
+        while(fast > 0 && slow > 0) {
+            fast = next(fast);
+            fast = next(fast);
+            slow = next(slow);
+            if(fast == 1) return true;
+            if(fast == slow) return false;
         }
-        return true;
+        return false;
     }
     
     int next(int n) {
