@@ -5,26 +5,25 @@ public:
     int ans = 0;
     int getMaximumGold(vector<vector<int>>& grid) {
         int n = grid.size(), m = grid[0].size();
-        vector<vector<int>>vis(n, vector<int>(m, 0));
         for(int i=0; i<n; i++) {
             for(int j=0; j<m; j++) {
-                if(grid[i][j] != 0) {
-                    dfs(grid, i, j, vis, 0);
+                if(grid[i][j]) {
+                    dfs(grid, i, j, 0);
                 }
             }
         }
         return ans;
     }
-    void dfs(vector<vector<int>>&grid, int i, int j, vector<vector<int>>&vis, int curGold) {
-        if(i < 0 || i >= grid.size() || j < 0 || j >= grid[0].size() || grid[i][j] == 0 || vis[i][j] == 1) return;
-        int cur = grid[i][j];
+    void dfs(vector<vector<int>>&grid, int x, int y, int curGold) {
+        if(x < 0 || x >= grid.size() || y < 0 || y >= grid[0].size() || grid[x][y] == 0) return;
+        int cur = grid[x][y];
         curGold += cur;
-        vis[i][j] = 1;
-        for(int x=0; x<4; x++) {
-            dfs(grid, i+dx[x], j+dy[x], vis, curGold);
+        grid[x][y] = 0;
+        for(int i=0; i<4; i++) {
+            dfs(grid, x+dx[i], y+dy[i], curGold);
         }
         ans = max(ans, curGold);
-        vis[i][j] = 0;
-        curGold -= cur;
+        grid[x][y] = cur;
+        return;
     }
 };
