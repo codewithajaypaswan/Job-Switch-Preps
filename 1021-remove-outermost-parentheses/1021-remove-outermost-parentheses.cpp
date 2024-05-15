@@ -1,9 +1,9 @@
 class Solution {
 public:
     string removeOuterParentheses(string s) {
-        int open = 0, n = s.size();
+        int open = 0;
         string ans = "";
-        for(int i=0; i<n; i++) {
+        for(int i=0; i<s.size(); i++) {
             if(s[i] == '(') {
                 if(open > 0) ans += s[i];
                 open++;
