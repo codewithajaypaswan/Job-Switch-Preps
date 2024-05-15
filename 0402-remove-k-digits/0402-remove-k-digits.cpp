@@ -5,21 +5,21 @@ public:
         stack<char>st;
         for(int i=0; i<n; i++) {
             while(!st.empty() && st.top() > num[i] && k > 0) {
-                k--;
                 st.pop();
+                k--;
             }
             if(st.empty() && num[i] == '0') continue;
             st.push(num[i]);
         }
-        while(k > 0 && !st.empty()) {
+        while(!st.empty() && k > 0) {
             st.pop();
             k--;
         }
-        num = "";
+        string ans = "";
         while(!st.empty()) {
-            num += st.top(); st.pop();
+            ans += st.top(); st.pop();
         }
-        reverse(num.begin(), num.end());
-        return num == "" ? "0" : num;
+        reverse(ans.begin(), ans.end());
+        return ans.empty() ? "0" : ans;
     }
 };
