@@ -1,12 +1,11 @@
 class Solution {
     public int minAddToMakeValid(String s) {
-        Stack<Character>st = new Stack<>();
-        int cnt = 0;
+        int leftPar = 0, rightPar = 0;
         for(char c:s.toCharArray()) {
-            if(c == '(') st.push(c);
-            else if(!st.isEmpty()) st.pop();
-            else cnt++;
+            if(c == '(') leftPar++;
+            else if(leftPar > 0) leftPar--;
+            else rightPar++;
         }
-        return st.size() + cnt;
+        return leftPar + rightPar;
     }
 }
