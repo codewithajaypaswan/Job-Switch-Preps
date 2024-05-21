@@ -8,7 +8,7 @@ public:
             if(preorder[i] != ',') continue;
             cnt--;
             if(cnt < 0) return false;
-            if(preorder[i-1] != '#') cnt += 2;
+            if(i > 0 && preorder[i-1] != '#') cnt+=2;
         }
         return cnt == 0;
     }
