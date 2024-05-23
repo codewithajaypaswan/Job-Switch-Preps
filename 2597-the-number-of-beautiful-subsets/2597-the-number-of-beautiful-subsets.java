@@ -1,18 +1,20 @@
 class Solution {
-public:
-    unordered_map<int, int>mp;
-    int solve(vector<int>&nums, int k, int ind) {
-        if(ind == nums.size()) return 1;
-        int ans = solve(nums, k, ind+1); // when skip
-        if(mp[nums[ind] - k] == 0) {
-            mp[nums[ind]]++; // take this nums[i]
+    HashMap<Integer, Integer>mp;
+    int solve(int[] nums, int k, int ind) {
+        if(ind >= nums.length) return 1;
+        int ans = solve(nums, k, ind+1);
+        if(!mp.containsKey(nums[ind] - k) && !mp.containsKey(nums[ind] + k)) {
+            mp.put(nums[ind], mp.getOrDefault(nums[ind], 0) + 1);
             ans += solve(nums, k, ind+1);
-            mp[nums[ind]]--; // revert this nums[i]
+            mp.put(nums[ind], mp.get(nums[ind]) - 1);
+            if(mp.get(nums[ind]) == 0) {
+                mp.remove(nums[ind]);
+            }
         }
         return ans;
     }
-    int beautifulSubsets(vector<int>& nums, int k) {
-        sort(nums.begin(), nums.end());
+    public int beautifulSubsets(int[] nums, int k) {
+        mp = new HashMap<>();
         return solve(nums, k, 0) - 1;
     }
-};
+}
