@@ -1,31 +1,39 @@
-class Solution {
+class UnionFind {
 public:
-    int find(int u, vector<int>&parent) {
-        if(parent[u] == -1) return u;
-        return parent[u] = find(parent[u], parent);
+    vector<int>rank, parent;
+    UnionFind(int size) {
+        rank.resize(size, 1);
+        parent.resize(size, -1);
     }
-    bool _union(int u, int v, vector<int>&parent, vector<int>&rank) {
-        int pu = find(u, parent);
-        int pv = find(v, parent);
+    int find(int u) {
+        if(parent[u] == -1) return u;
+        return parent[u] = find(parent[u]);
+    }
+    
+    bool _union(int u, int v) {
+        int pu = find(u);
+        int pv = find(v);
         if(pu == pv) return false;
         if(rank[pu] > rank[pv]) {
+            rank[pu]++;
             parent[pv] = pu;
-            rank[pu] += 1;
         }
         else {
+            rank[pv]++;
             parent[pu] = pv;
-            rank[pv] += 1;
         }
         return true;
     }
+};
+class Solution {
+public:
     int removeStones(vector<vector<int>>& stones) {
-        int n = stones.size();
-        int cnt = 0;
-        vector<int>parent(n+1, -1), rank(n+1, 0);
+        int n = stones.size(), cnt = 0;
+        UnionFind uf(n);
         for(int i=0; i<n; i++) {
-            for(int j=i+1; j<n; j++) {
+            for(int j=0; j<n; j++) {
                 if(stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1]) {
-                    if(_union(i, j, parent, rank)) cnt++;
+                    if(uf._union(i, j)) cnt++;
                 }
             }
         }
