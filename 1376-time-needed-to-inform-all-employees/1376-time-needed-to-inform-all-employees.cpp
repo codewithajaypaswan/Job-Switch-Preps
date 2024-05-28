@@ -1,13 +1,6 @@
 class Solution {
 public:
     int ans = 0;
-    void dfs(vector<int>adj[], int cur, vector<int>&informTime, int sum) {
-        sum += informTime[cur];
-        ans = max(ans, sum);
-        for(int child:adj[cur]) {
-            dfs(adj, child, informTime, sum);
-        }
-    }
     int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
         vector<int>adj[n];
         for(int i=0; i<n; i++) {
@@ -16,5 +9,12 @@ public:
         }
         dfs(adj, headID, informTime, 0);
         return ans;
+    }
+    void dfs(vector<int>adj[], int cur, vector<int>&informTime, int sum) {
+        sum += informTime[cur];
+        ans = max(ans, sum);
+        for(int child:adj[cur]) {
+            dfs(adj, child, informTime, sum);
+        }
     }
 };
