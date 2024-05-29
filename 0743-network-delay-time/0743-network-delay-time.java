@@ -1,28 +1,14 @@
 class Solution {
     static final int mx = 1_000_000_000;
     public int networkDelayTime(int[][] times, int n, int k) {
-        List<List<int[]>> adj = new ArrayList<>();
-        for(int i=0; i<=n; i++) {
-            adj.add(new ArrayList<>());
-        }
-        for(int []t:times) {
-            adj.get(t[0]).add(new int[] {t[1], t[2]});
-        }
-        PriorityQueue<int[]>pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
         int[] dist = new int[n+1];
-        int[] vis = new int[n+1];
         Arrays.fill(dist, mx);
         dist[k] = 0;
-        pq.offer(new int[] {0, k});
-        while(!pq.isEmpty()) {
-            int[] cur = pq.poll();
-            int d = cur[0], u = cur[1];
-            vis[u] = 1;
-            for(int[] temp: adj.get(u)) {
-                int v = temp[0], wt = temp[1];
-                if(vis[v] == 0 && dist[v] > dist[u] + wt) {
+        for(int i=0; i<n-1; i++) {
+            for(int[] t:times) {
+                int u = t[0], v = t[1], wt = t[2];
+                if(dist[u] != mx && dist[v] > dist[u] + wt) {
                     dist[v] = dist[u] + wt;
-                    pq.offer(new int[] {dist[v], v});
                 }
             }
         }
