@@ -15,7 +15,7 @@ class Twitter {
     
     public List<Integer> getNewsFeed(int userId) {
         List<Integer> ans = new ArrayList<>();
-        PriorityQueue<int[]>pq = new PriorityQueue<>((a, b) -> b[0] - a[0]);
+        PriorityQueue<int[]>pq = new PriorityQueue<>(Comparator.comparingInt((int[] a) -> a[0]).reversed());
         if(tw.containsKey(userId)) {
             for(int[] t:tw.get(userId)) {
                 pq.offer(t);
