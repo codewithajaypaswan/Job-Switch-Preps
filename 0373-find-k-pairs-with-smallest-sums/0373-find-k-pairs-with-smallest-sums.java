@@ -5,14 +5,12 @@ class Solution {
         for(int i=0; i<nums1.length; i++) {
             pq.offer(new int[] {nums1[i] + nums2[0], i, 0});
         }
-        for(int i=0; i<k && !pq.isEmpty(); i++) {
+        while(k-- > 0 && !pq.isEmpty()) {
             int[] temp = pq.poll();
-            int x = temp[1], y = temp[2];
-            ans.add(new ArrayList<>());
-            ans.get(i).add(nums1[x]);
-            ans.get(i).add(nums2[y]);
-            if(y+1 < nums2.length) {
-                pq.offer(new int[] {nums1[x] + nums2[y+1], x, y+1});
+            int i = temp[1], j = temp[2];
+            ans.add(Arrays.asList(nums1[i], nums2[j]));
+            if(j+1 < nums2.length) {
+                pq.offer(new int[] {nums1[i] + nums2[j+1], i, j+1});
             }
         }
         return ans;
