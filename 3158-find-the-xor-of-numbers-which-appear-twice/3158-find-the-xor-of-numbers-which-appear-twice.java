@@ -4,9 +4,10 @@ class Solution {
         for(int i=0; i<nums.length; i++) 
             mp.put(nums[i], mp.getOrDefault(nums[i], 0) + 1);
         int ans = 0;
-        for(int x:mp.keySet()) {
-            int val = mp.get(x);
-            if(val == 2) ans ^= x;
+        for(Map.Entry<Integer, Integer>x : mp.entrySet()) {
+            int key = x.getKey();
+            int val = x.getValue();
+            if(val == 2) ans ^= key;
         }
         return ans;
     }
