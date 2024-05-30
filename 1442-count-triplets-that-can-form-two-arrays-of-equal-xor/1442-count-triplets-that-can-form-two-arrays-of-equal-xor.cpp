@@ -1,15 +1,18 @@
 class Solution {
 public:
     int countTriplets(vector<int>& arr) {
-        arr.insert(arr.begin(), 0);
-        for(int i=1; i<arr.size(); i++) {
-            arr[i] ^= arr[i-1];
-        }
-        int ans = 0, n = arr.size();
+        int n = arr.size();
+        unordered_map<int, vector<int>>mp;
+        mp[0].push_back(-1);
+        int x = 0, ans = 0;
         for(int i=0; i<n; i++) {
-            for(int j=i+1; j<n; j++) {
-                if((arr[i] ^ arr[j]) == 0) ans += j-i-1;
+            x ^= arr[i];
+            if(mp.find(x) != mp.end()) {
+                for(auto index:mp[x]) {
+                    ans += i - index - 1;
+                }
             }
+            mp[x].push_back(i);
         }
         return ans;
     }
