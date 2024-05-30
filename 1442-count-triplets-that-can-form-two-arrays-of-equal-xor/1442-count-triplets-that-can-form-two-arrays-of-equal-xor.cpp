@@ -8,7 +8,7 @@ public:
         int ans = 0, n = arr.size();
         for(int i=0; i<n; i++) {
             for(int j=i+1; j<n; j++) {
-                if(arr[i] == arr[j]) ans += j-i-1;
+                if((arr[i] ^ arr[j]) == 0) ans += j-i-1;
             }
         }
         return ans;
