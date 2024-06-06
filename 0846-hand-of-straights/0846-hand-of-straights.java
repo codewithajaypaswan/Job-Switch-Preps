@@ -4,14 +4,14 @@ class Solution {
         for(int x:hand) {
             mp.put(x, mp.getOrDefault(x, 0) + 1);
         }
-        for(int val:mp.keySet()) {
-            int freq = mp.get(val);
+        for(Map.Entry<Integer, Integer>entry: mp.entrySet()) {
+            int val = entry.getKey();
+            int freq = entry.getValue();
             if(freq > 0) {
                 for(int i=0; i<groupSize; i++) {
-                    if(!mp.containsKey(val + i)) return false;
-                    int nextVal = mp.get(val + i);
-                    if(nextVal - freq < 0) return false;
-                    mp.put(val + i, nextVal - freq);
+                    if(mp.getOrDefault(val + i, 0) < freq) return false;
+                    mp.put(val+i, mp.get(val + i) - freq);
+                    
                 }
             }
         }
