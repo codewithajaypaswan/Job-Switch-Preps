@@ -1,23 +1,17 @@
 class Solution {
-    public int countSubstrings(String s) {
-        int n = s.length();
-        int[][] dp = new int[n][n];
+    int solve(String s, int low, int high) {
         int ans = 0;
-        for(int i=0; i<n; i++) {
-            dp[i][i] = 1;
+        while(low >= 0 && high < s.length() && s.charAt(low) == s.charAt(high)) {
+            low--; high++;
             ans++;
         }
-        for(int i=0; i<n-1; i++) {
-            if(s.charAt(i) == s.charAt(i+1)) {
-                dp[i][i+1] = 1;
-                ans++;
-            }
-        }
-        for(int len=3; len<=n; len++) {
-            for(int i=0, j=len-1; j<n; j++, i++) {
-                dp[i][j] = (dp[i+1][j-1] == 1 && (s.charAt(i) == s.charAt(j))) == true ? 1 : 0;
-                ans += dp[i][j];
-            }
+        return ans;
+    }
+    public int countSubstrings(String s) {
+        int ans = 0, n = s.length();
+        for(int i=0; i<n; i++) {
+            ans += solve(s, i, i); // for odd length
+            ans += solve(s, i, i+1);
         }
         return ans;
     }
