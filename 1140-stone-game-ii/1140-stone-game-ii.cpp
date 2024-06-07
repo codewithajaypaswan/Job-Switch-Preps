@@ -6,7 +6,8 @@ public:
         if(dp[person][ind][M] != -1) return dp[person][ind][M];
         int ans = person == 1 ? INT_MIN : INT_MAX;
         int stones = 0;
-        for(int x=1; x<=min(2*M, (int) piles.size() - ind); x++) {
+        for(int x=1; x<=2*M; x++) {
+            if(ind + x - 1 >= piles.size()) break;
             stones += piles[ind+x-1];
             if(person == 1) {
                 // for alice we maximize the result
