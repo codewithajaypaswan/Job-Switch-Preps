@@ -1,12 +1,19 @@
 class Solution {
     public int minFallingPathSum(int[][] mat) {
         int n = mat.length, m = mat[0].length;
-        int[][] dp = new int[n][m];
-        for(int i=0; i<n; i++) Arrays.fill(dp[i], Integer.MAX_VALUE);
-        int ans = Integer.MAX_VALUE;
-        for(int c=0; c<m; c++) {
-            ans = Math.min(ans, solve(mat, dp, 0, c));
+        int[] dp = new int[m];
+        for(int i=0; i<m; i++) dp[i] = mat[0][i];
+        for(int i=1; i<n; i++) {
+            int[] temp = new int[m];
+            for(int j=0; j<m; j++) {
+                if(j == 0 && j+1 < m) temp[j] = mat[i][j] + Math.min(dp[j], dp[j+1]);
+                if(j == m-1 && j-1 >= 0) temp[j] = mat[i][j] + Math.min(dp[j], dp[j-1]);
+                else if(j-1 >= 0 && j+1 < m) temp[j] = mat[i][j] + Math.min(Math.min(dp[j], dp[j-1]), dp[j+1]);
+            }
+            dp = temp;
         }
+        int ans = Integer.MAX_VALUE;
+        for(int i=0; i<m; i++) ans = Math.min(ans, dp[i]);
         return ans;
     }
     public int solve(int[][] mat, int[][] dp, int row, int col) {
