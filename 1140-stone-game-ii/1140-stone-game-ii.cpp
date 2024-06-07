@@ -4,7 +4,7 @@ public:
     int solveForAlice(int person, int ind, int M, vector<int>&piles) {
         if(ind >= piles.size()) return 0;
         if(dp[person][ind][M] != -1) return dp[person][ind][M];
-        int ans = person == 1 ? -1 : INT_MAX;
+        int ans = person == 1 ? INT_MIN : INT_MAX;
         int stones = 0;
         for(int x=1; x<=min(2*M, (int) piles.size() - ind); x++) {
             stones += piles[ind+x-1];
