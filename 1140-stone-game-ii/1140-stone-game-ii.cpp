@@ -1,29 +1,26 @@
 class Solution {
 public:
-    int solve(vector<int>&piles, int ind, int M, vector<vector<int>>&dp) {
+    int dp[2][101][101];
+    int solveForAlice(int person, int ind, int M, vector<int>&piles) {
         if(ind >= piles.size()) return 0;
-        if(dp[ind][M] != -1) return dp[ind][M];
-        int total = 0, ans = INT_MIN;
-        for(int i=0; i<2*M; i++) {
-            if(ind + i < piles.size()) total += piles[ind + i];
-            ans = max(ans, total - solve(piles, ind + i + 1, max(M, i+1), dp));
+        if(dp[person][ind][M] != -1) return dp[person][ind][M];
+        int ans = person == 1 ? -1 : INT_MAX;
+        int stones = 0;
+        for(int x=1; x<=min(2*M, (int) piles.size() - ind); x++) {
+            stones += piles[ind+x-1];
+            if(person == 1) {
+                // for alice we maximize the result
+                ans = max(ans, stones + solveForAlice(0, ind+x, max(M, x), piles));
+            }
+            else {
+                // for bob we minimize the result
+                ans = min(ans, solveForAlice(1, ind+x, max(M, x), piles));
+            }
         }
-        return dp[ind][M] = ans;
+        return dp[person][ind][M] = ans;
     }
     int stoneGameII(vector<int>& piles) {
-        int n = piles.size();
-        vector<vector<int>>dp(101, vector<int>(101, -1));
-        int sum = 0;
-        for(int p:piles) {
-            sum += p;
-        }
-        int diff = solve(piles, 0, 1, dp);
-        return (sum + diff)/2;
+        memset(dp, -1, sizeof(dp));
+        return solveForAlice(1, 0, 1, piles);
     }
 };
-// a = stones picked by Alice
-// b = stones picked by Bob
-// a+b == total stones
-// a-b == diff stones
-// ans = (a+b) + (a-b) == 2a
-// return ans/2
