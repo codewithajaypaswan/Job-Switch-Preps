@@ -15,3 +15,6 @@ public:
         return ans;
     }
 };
+
+// dp[i] = ith valid sum we can make from the array
+// validPrev = no of values valid till this point
