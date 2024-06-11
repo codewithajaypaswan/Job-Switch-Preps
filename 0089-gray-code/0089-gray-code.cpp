@@ -2,7 +2,13 @@ class Solution {
 public:
     vector<int>ans;
     vector<int> grayCode(int n) {
-        solve(n);
+        ans.push_back(0);
+        for(int i=0; i<n; i++) {
+            int mask = (1<<i);
+            for(int j=ans.size()-1; j>=0; j--) {
+                ans.push_back(ans[j] ^ mask);
+            }
+        }
         return ans;
     }
     void solve(int n) {
