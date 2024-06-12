@@ -6,7 +6,6 @@ public:
         for(int x:nums) {
             total += abs(x);
         }
-        cout<<2*total + 1<<endl;
         vector<vector<int>>dp(n+1, vector<int>(2*total + 1, -1));
         return solve(nums, target, 0, dp, 0);
     }
