@@ -1,11 +1,23 @@
 class Solution {
     int mod = 1_000_000_007;
     public int numRollsToTarget(int n, int k, int target) {
-        int[][]dp = new int[n+1][target+1];
-        for(int i=0; i<=n; i++) {
-            Arrays.fill(dp[i], -1);
+        // int[][]dp = new int[n+1][target+1];
+        // for(int i=0; i<=n; i++) {
+        //     Arrays.fill(dp[i], -1);
+        // }
+        // return solve(n, k, target, dp);
+        int[] dp = new int[target + 1];
+        dp[0] = 1;
+        for(int x=1; x<=n; x++) {
+            for(int i=target; i>=0; i--) {
+                int ways = 0;
+                for(int j=i-1; j>=Math.max(0, i - k); j--) {
+                    ways = (ways + dp[j])%mod;
+                }
+                dp[i] = ways;
+            }
         }
-        return solve(n, k, target, dp);
+        return dp[target];
     }
     private int solve(int n, int k, int target, int[][]dp) {
         if(n == 0 && target == 0) return 1;
