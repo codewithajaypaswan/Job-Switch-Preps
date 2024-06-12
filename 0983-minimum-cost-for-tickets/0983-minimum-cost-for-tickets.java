@@ -4,12 +4,13 @@ class Solution {
         for(int x:days) {
             st.add(x);
         }
-        int[] dp = new int[366];
-        for(int i=1; i<=365; i++) {
-            if(!st.contains(i)) dp[i] = dp[i-1];
-            else dp[i] = min(costs[0] + dp[i-1], costs[1] + dp[Math.max(0, i-7)], costs[2] + dp[Math.max(0, i-30)]);
+        int[] dp = new int[31];
+        int n = days.length;
+        for(int i=days[0]; i<=days[n-1]; i++) {
+            if(!st.contains(i)) dp[i%30] = dp[(i-1)%30];
+            else dp[i%30] = min(costs[0] + dp[(i-1)%30], costs[1] + dp[(Math.max(0, i-7))%30], costs[2] + dp[(Math.max(0, i-30))%30]);
         }
-        return dp[365];
+        return dp[days[n-1]%30];
     }
     
     private int min(int x, int y, int z) {
