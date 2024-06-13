@@ -22,7 +22,22 @@ public:
         return solve(root->left, depth+1) + solve(root->right, depth + 1);
     }
     int deepestLeavesSum(TreeNode* root) {
-        maxDepth = findDepth(root);
-        return solve(root, 1);
+        // maxDepth = findDepth(root);
+        // return solve(root, 1);
+        if(!root) return 0;
+        queue<TreeNode*>q;
+        q.push(root);
+        int ans = 0;
+        while(!q.empty()) {
+            int temp = 0, sz = q.size();
+            while(sz--) {
+                TreeNode* cur = q.front(); q.pop();
+                temp += cur->val;
+                if(cur->left) q.push(cur->left);
+                if(cur->right) q.push(cur->right);
+            }
+            ans = temp;
+        }
+        return ans;
     }
 };
