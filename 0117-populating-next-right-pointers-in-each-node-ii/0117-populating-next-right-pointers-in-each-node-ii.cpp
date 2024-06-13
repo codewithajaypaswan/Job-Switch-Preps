@@ -18,10 +18,8 @@ public:
 
 class Solution {
 public:
-    Node* connect(Node* root) {
-        if(!root) return root;
-        Node* head, *tail;
-        head = tail = NULL;
+    Node* solution1(Node* root) {
+        Node* head = NULL, *tail = NULL;
         Node* cur = root;
         while(cur) {
             if(cur->left) {
@@ -34,7 +32,6 @@ public:
                     head = tail;
                 }
             }
-            
             if(cur->right) {
                 if(tail) {
                     tail->next = cur->right;
@@ -52,5 +49,9 @@ public:
             }
         }
         return root;
+    }
+    Node* connect(Node* root) {
+        if(!root) return root;
+        return solution1(root);
     }
 };
