@@ -13,8 +13,23 @@ class Solution {
 public:
     unsigned long long sum = 0, count = 0;
     bool isCompleteTree(TreeNode* root) {
-        solve(root, 1LL);
-        return count * (count + 1)/2 == sum;
+        queue<TreeNode*>q;
+        q.push(root);
+        bool flag = false;
+        while(!q.empty()) {
+            TreeNode* cur = q.front(); q.pop();
+            if(cur == NULL) {
+                flag = true;
+            }
+            else {
+                if(flag == true) return false;
+                q.push(cur->left);
+                q.push(cur->right);
+            }
+        }
+        return true;
+        // solve(root, 1LL);
+        // return count * (count + 1)/2 == sum;
     }
     void solve(TreeNode* root, unsigned long long v) {
         if(!root) return;
