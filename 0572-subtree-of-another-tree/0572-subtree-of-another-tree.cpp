@@ -20,7 +20,7 @@ public:
         if(!root && !subRoot) return true;
         if(!root || !subRoot) return false;
         if(root->val == subRoot->val) {
-            return dfs(root->left, subRoot->left) && dfs(root->right, subRoot->right);
+            return dfs(root->left, subRoot->left) && dfs(root->right, subRoot->right); 
         }
         return false;
     }
