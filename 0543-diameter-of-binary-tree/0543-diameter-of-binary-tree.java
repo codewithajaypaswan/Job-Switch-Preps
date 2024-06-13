@@ -19,16 +19,24 @@ class Solution {
         if(root == null) return 0;
         return 1 + Math.max(height(root.left), height(root.right));
     }
-    private void solve(TreeNode root) {
+    private void solve1(TreeNode root) {
         if(root == null) return;
         int lh = height(root.left);
         int rh = height(root.right);
         ans = Math.max(lh + rh, ans);
-        solve(root.left);
-        solve(root.right);
+        solve1(root.left);
+        solve1(root.right);
     }
     public int diameterOfBinaryTree(TreeNode root) {
-        solve(root);
+        // solve1(root); // first solution
+        solve2(root);
         return ans;
+    }
+    private int solve2(TreeNode root) {
+        if(root == null) return 0;
+        int lh = solve2(root.left);
+        int rh = solve2(root.right);
+        ans = Math.max(lh + rh, ans);
+        return 1 + Math.max(lh, rh);
     }
 }
