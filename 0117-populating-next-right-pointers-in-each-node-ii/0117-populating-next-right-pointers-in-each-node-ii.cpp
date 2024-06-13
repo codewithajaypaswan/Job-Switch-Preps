@@ -52,6 +52,20 @@ public:
     }
     Node* connect(Node* root) {
         if(!root) return root;
-        return solution1(root);
+        // return solution1(root);
+        queue<Node*>q;
+        q.push(root);
+        q.push(NULL);
+        while(!q.empty()) {
+            Node* cur = q.front(); q.pop();
+            if(cur == NULL && q.empty()) return root;
+            else if(cur == NULL && !q.empty()) q.push(NULL);
+            else {
+                cur->next = q.front();
+                if(cur->left) q.push(cur->left);
+                if(cur->right) q.push(cur->right);
+            }
+        }
+        return root;
     }
 };
