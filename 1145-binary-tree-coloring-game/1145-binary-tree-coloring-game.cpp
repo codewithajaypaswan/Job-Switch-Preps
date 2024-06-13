@@ -11,21 +11,21 @@
  */
 class Solution {
 public:
-    int leftChild = 0, rightChild = 0;
+    int leftChild = 0, rightChild = 0, parent = 0;
     bool btreeGameWinningMove(TreeNode* root, int n, int x) {
-        n = dfs(root, x);
-        int parentCount = n - leftChild - rightChild - 1;
-        int ans = max({parentCount, leftChild, rightChild});
-        return ans > n/2;
+        n = count(root, x);
+        parent = n - leftChild - rightChild - 1;
+        int mx = max({leftChild, rightChild, parent});
+        return mx > n/2;
     }
-    int dfs(TreeNode* root, int x) {
+    int count(TreeNode* root, int x) {
         if(!root) return 0;
-        int left = dfs(root->left, x);
-        int right = dfs(root->right, x);
+        int cntLeft = count(root->left, x);
+        int cntRight = count(root->right, x);
         if(root->val == x) {
-            leftChild = left;
-            rightChild = right;
+            leftChild = cntLeft;
+            rightChild = cntRight;
         }
-        return left + right + 1;
+        return 1 + cntLeft + cntRight;
     }
 };
