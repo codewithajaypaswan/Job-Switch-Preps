@@ -25,7 +25,23 @@ class Solution {
         return solve(root.left, depth+1) + solve(root.right, depth+1);
     }
     public int deepestLeavesSum(TreeNode root) {
-        maxDepth = findDepth(root);
-        return solve(root, 1);
+        // maxDepth = findDepth(root);
+        // return solve(root, 1);
+        if(root == null) return 0;
+        Queue<TreeNode>q = new LinkedList<>();
+        q.add(root);
+        int ans = 0;
+        while(!q.isEmpty()) {
+            int sz = q.size();
+            int temp = 0;
+            while(sz-- > 0) {
+                TreeNode cur = q.poll();
+                temp += cur.val;
+                if(cur.left != null) q.add(cur.left);
+                if(cur.right != null) q.add(cur.right);
+            }
+            ans = temp;
+        }
+        return ans;
     }
 }
