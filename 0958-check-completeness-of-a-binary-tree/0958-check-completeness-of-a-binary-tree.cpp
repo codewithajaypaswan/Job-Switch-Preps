@@ -13,14 +13,14 @@ class Solution {
 public:
     unsigned long long sum = 0, count = 0;
     bool isCompleteTree(TreeNode* root) {
-        dfs(root, 1LL);
+        solve(root, 1LL);
         return count * (count + 1)/2 == sum;
     }
-    void dfs(TreeNode* root, unsigned long long label) {
+    void solve(TreeNode* root, unsigned long long v) {
         if(!root) return;
-        sum += label;
         count++;
-        dfs(root->left, label * 2);
-        dfs(root->right, label * 2 + 1);
+        sum += v;
+        solve(root->left, v * 2);
+        solve(root->right, v*2 + 1);
     }
 };
