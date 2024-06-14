@@ -18,10 +18,6 @@ class MyLinkedList {
     public int get(int index) {
         if(index >= size) return -1;
         Node temp = head;
-        while(temp != null) {
-            temp = temp.next;
-        }
-        temp = head;
         for(int i=0; i<=index; i++) {
             temp = temp.next;
         }
