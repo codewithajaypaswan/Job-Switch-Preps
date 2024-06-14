@@ -6,8 +6,9 @@ public:
         int ans = 0;
         for(int i=1; i<n; i++) {
             if(nums[i-1] >= nums[i]) {
-                ans += (nums[i-1] - nums[i]) + 1;
-                nums[i] = nums[i-1] + 1;
+                int need = nums[i-1] - nums[i] + 1;
+                ans += need;
+                nums[i] += need;
             }
         }
         return ans;
