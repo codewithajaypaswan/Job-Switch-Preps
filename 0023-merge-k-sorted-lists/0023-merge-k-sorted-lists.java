@@ -9,7 +9,7 @@
  * }
  */
 class Solution {
-    ListNode merge(ListNode list1, ListNode list2) {
+    public ListNode merge(ListNode list1, ListNode list2) {
         if(list1 == null) return list2;
         if(list2 == null) return list1;
         if(list1.val < list2.val) {
@@ -21,7 +21,7 @@ class Solution {
             return list2;
         }
     }
-    ListNode solve(ListNode[] lists, int cur) {
+    public ListNode solve(ListNode[] lists, int cur) {
         if(lists.length - 1 == cur) return lists[cur];
         ListNode a = solve(lists, cur+1);
         ListNode b = lists[cur];
