@@ -11,21 +11,21 @@
 class Solution {
     public int[] nextLargerNodes(ListNode head) {
         int n = 0;
-        ListNode cur = head;
-        while(cur != null) {
+        ListNode temp = head;
+        while(temp != null) {
+            temp = temp.next;
             n++;
-            cur = cur.next;
         }
         int[] ans = new int[n];
-        cur = head;
-        Stack<Pair<Integer, Integer>>st = new Stack<>();
+        Stack<Pair<Integer, Integer>>st = new Stack();
+        temp = head;
         for(int i=0; i<n; i++) {
-            while(!st.isEmpty() && st.peek().getKey() < cur.val) {
-                ans[st.peek().getValue()] = cur.val;
+            while(!st.isEmpty() && st.peek().getKey() < temp.val) {
+                ans[st.peek().getValue()] = temp.val;
                 st.pop();
             }
-            st.push(new Pair<>(cur.val, i));
-            cur = cur.next;
+            st.push(new Pair<>(temp.val, i));
+            temp = temp.next;
         }
         return ans;
     }
