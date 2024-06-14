@@ -1,53 +1,47 @@
-class MyHashMap {
+struct Node {
 public:
-    vector<list<pair<int,int>>>vp;
-    int size = 0;
-    MyHashMap() {
-        vp.resize(1000);
-        size = 1000;
-    }
-    
-    int getHash(int key) {
-        return key%size;
-    }
-    void put(int key, int value) {
-        int ind = getHash(key);
-        auto &v = vp[ind];
-        for(auto &it:v) {
-            if(it.first == key) {
-                it.second = value;
-                return;
-            }
-        }
-        vp[ind].push_back({key, value});
-    }
-    
-    int get(int key) {
-        int ind = getHash(key);
-        auto &v = vp[ind];
-        for(auto &it:v) {
-            if(it.first == key) return it.second;
-        }
-        return -1;
-    }
-    
-    void remove(int key) {
-        int ind = getHash(key);
-        auto &v = vp[ind];
-        for(auto &it:v) {
-            if(it.first == key) {
-                vp[ind].remove(it);
-                return;
-            }
-        }
-        return;
+    int key, val;
+    Node* next;
+    Node(int k, int v, Node* n) {
+        key = k;
+        val = v;
+        next = n;
     }
 };
-
-/**
- * Your MyHashMap object will be instantiated and called as such:
- * MyHashMap* obj = new MyHashMap();
- * obj->put(key,value);
- * int param_2 = obj->get(key);
- * obj->remove(key);
- */
+class MyHashMap {
+public:
+    const static int size = 19997;
+    const static int mult = 12582917;
+    Node* data[size] = {};
+    int hash(int key) {
+        return (int)((long)key * mult % size);
+    }
+    void put(int key, int val) {
+        remove(key);
+        int h = hash(key);
+        Node* node = new Node(key, val, data[h]);
+        data[h] = node;
+    }    
+    int get(int key) {
+        int h = hash(key);
+        Node* node = data[h];
+        for (; node != NULL; node = node->next)
+            if (node->key == key) return node->val;
+        return -1;
+    }    
+    void remove(int key) {
+        int h = hash(key);
+        Node* node = data[h];
+        if (node == NULL) return;
+        if (node->key == key) {
+            data[h] = node->next;
+            delete node;
+        } else for (; node->next != NULL; node = node->next)
+            if (node->next->key == key) {
+                Node* temp = node->next;
+                node->next = temp->next;
+                delete temp;
+                return;
+            }
+    }
+};
