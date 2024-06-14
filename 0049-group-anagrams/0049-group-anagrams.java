@@ -9,8 +9,8 @@ class Solution {
             mp.get(sorted).add(s);
         }
         List<List<String>>ans = new ArrayList<>();
-        for(Map.Entry<String, List<String>> e:mp.entrySet()) {
-            ans.add(e.getValue());
+        for(String s:mp.keySet()) {
+            ans.add(mp.get(s));
         }
         return ans;
     }
