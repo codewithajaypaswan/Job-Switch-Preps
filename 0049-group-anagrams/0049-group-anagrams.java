@@ -15,8 +15,18 @@ class Solution {
         return ans;
     }
     String sortString(String s) {
-        char[] ch = s.toCharArray();
-        Arrays.sort(ch);
-        return new String(ch);
+        StringBuilder sb = new StringBuilder();
+        int[]freq = new int[26];
+        for(char c:s.toCharArray()) {
+            freq[c - 'a']++;
+        }
+        for(int i=0; i<26; i++) {
+            if(freq[i] > 0) {
+                while(freq[i]-- > 0) {
+                    sb.append((char) ((int)'a' + i));
+                }
+            }
+        }
+        return sb.toString();
     }
 }
