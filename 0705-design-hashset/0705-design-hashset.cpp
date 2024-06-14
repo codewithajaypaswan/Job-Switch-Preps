@@ -7,52 +7,52 @@ public:
         next = n;
     }
 };
-
 class MyHashSet {
 public:
     const static int size = 19997;
     const static int mult = 12582917;
     Node* data[size] = {};
-
-    int hash(int key) {
-        return (int)((long)key * mult % size);
+    int findHash(int key) {
+        return ((long)key%size * mult)%size;
     }
-
     MyHashSet() {
         
     }
     
     void add(int key) {
-        if (contains(key)) return;
-        int h = hash(key);
-        Node* node = new Node(key, data[h]);
-        data[h] = node;
+        if(contains(key)) return;
+        int hash = findHash(key);
+        Node* node = new Node(key, data[hash]);
+        data[hash] = node;
     }
     
     void remove(int key) {
-        int h = hash(key);
-        Node* node = data[h];
-        if (node == NULL) return;
-        if (node->key == key) {
-            data[h] = node->next;
+        int hash = findHash(key);
+        Node* node = data[hash];
+        if(node == NULL) return;
+        if(node->key == key) {
+            data[hash] = node->next;
             delete node;
-        } else {
-            for (; node->next != NULL; node = node->next) {
-                if (node->next->key == key) {
-                    Node* temp = node->next;
-                    node->next = temp->next;
-                    delete temp;
-                    return;
-                }
+            return;
+        }
+        else {
+            while(node->next && node->next->key == key) {
+                Node* temp = node->next;
+                node->next = temp->next;
+                // temp->next = NULL;
+                delete temp;
+                return;
             }
         }
     }
     
     bool contains(int key) {
-        int h = hash(key);
-        Node* node = data[h];
-        for (; node != NULL; node = node->next)
-            if (node->key == key) return true;
+        int hash = findHash(key);
+        Node* node = data[hash];
+        while(node) {
+            if(node->key == key) return true;
+            node = node->next;
+        }
         return false;
     }
 };
