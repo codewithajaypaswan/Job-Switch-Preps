@@ -1,13 +1,13 @@
 class Solution {
 public:
     vector<int> deckRevealedIncreasing(vector<int>& deck) {
-        queue<int>q;
         int n = deck.size();
+        queue<int>q;
+        vector<int>ans(n);
         sort(deck.begin(), deck.end());
         for(int i=0; i<n; i++) {
             q.push(i);
         }
-        vector<int>ans(n);
         for(int i=0; i<n; i++) {
             int cur = q.front(); q.pop();
             ans[cur] = deck[i];
