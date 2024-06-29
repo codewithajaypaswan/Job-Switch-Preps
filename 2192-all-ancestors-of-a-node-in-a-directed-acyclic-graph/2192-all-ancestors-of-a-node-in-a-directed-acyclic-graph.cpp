@@ -1,5 +1,28 @@
 class Solution {
 public:
+    void solve(int cur, vector<vector<int>>&adj, vector<vector<int>>&ans, int x) {
+        for(int child:adj[cur]) {
+            if(ans[child].empty() || ans[child].back() != x) {
+                ans[child].push_back(x);
+                solve(child, adj, ans, x);
+            }
+        }
+    }
+    vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
+        vector<vector<int>>ans(n), adj(n);
+        for(auto e:edges) {
+            adj[e[0]].push_back(e[1]);
+        }
+        for(int i=0; i<n; i++) {
+            solve(i, adj, ans, i);
+        }
+        return ans;
+    }
+};
+
+/*
+class Solution {
+public:
     void solve(int cur, vector<vector<int>>&adj, vector<vector<int>>&ans, int x, vector<int>&vis) {
         vis[cur] = true;
         for(int child:adj[cur]) {
@@ -21,3 +44,5 @@ public:
         return ans;
     }
 };
+
+*/
