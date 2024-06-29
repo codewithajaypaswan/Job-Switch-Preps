@@ -10,18 +10,16 @@ class Solution {
             adj.get(e[0]).add(e[1]);
         }
         for(int i=0; i<n; i++) {
-            int[] vis = new int[n];
-            solve(i, vis, adj, ans, i);
+            solve(i, adj, ans, i);
         }
         return ans;
     }
-    public void solve(int cur, int[] vis, List<List<Integer>>adj, List<List<Integer>>ans, int x) {
-        vis[cur] = 1;
+    public void solve(int cur, List<List<Integer>>adj, List<List<Integer>>ans, int x) {
         for(int i=0; i<adj.get(cur).size(); i++) {
             int child = adj.get(cur).get(i);
-            if(vis[child] == 0) {
+            if(ans.get(child).isEmpty() || ans.get(child).get(ans.get(child).size() - 1) != x) {
                 ans.get(child).add(x);
-                solve(child, vis, adj, ans, x);
+                solve(child, adj, ans, x);
             }
         }
     }
