@@ -11,20 +11,15 @@ class Solution {
             return;
         }
         if(sb.isEmpty()) {
-            solve(n-1, sb.append('0'));
-            sb.deleteCharAt(sb.length()-1);
-            solve(n-1, sb.append('1'));
-            sb.deleteCharAt(sb.length()-1);
+            solve(n-1, new StringBuilder(sb).append('0'));
+            solve(n-1, new StringBuilder(sb).append('1'));
         }
         else if(sb.charAt(sb.length()-1) == '1') {
-            solve(n-1, sb.append('0'));
-            sb.deleteCharAt(sb.length()-1);
-            solve(n-1, sb.append('1'));
-            sb.deleteCharAt(sb.length()-1);
+            solve(n-1, new StringBuilder(sb).append('0'));
+            solve(n-1, new StringBuilder(sb).append('1'));
         }
         else {
-            solve(n-1, sb.append('1'));
-            sb.deleteCharAt(sb.length()-1);
+            solve(n-1, new StringBuilder(sb).append('1'));
         }
     }
 }
