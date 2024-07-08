@@ -4,6 +4,10 @@ class Solution {
         return (solve(n-1, k) + k)%n;
     }
     public int findTheWinner(int n, int k) {
-        return solve(n, k) + 1;
+        int ans = 0;
+        for(int i=1; i<=n; i++) {
+            ans = (ans + k)%i;
+        }
+        return ans + 1;
     }
 }
