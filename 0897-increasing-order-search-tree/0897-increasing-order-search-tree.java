@@ -14,17 +14,17 @@
  * }
  */
 class Solution {
-    TreeNode cur = new TreeNode(0);
-    TreeNode dummy = cur;
+    TreeNode cur;
     void solve(TreeNode root) {
         if(root == null) return;
         solve(root.left);
-        cur.right = root;
-        root.left = null;
+        cur.right = new TreeNode(root.val);
         cur = cur.right;
         solve(root.right);
     }
     public TreeNode increasingBST(TreeNode root) {
+        TreeNode dummy = new TreeNode(0);
+        cur = dummy;
         solve(root);
         return dummy.right;
     }
