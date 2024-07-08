@@ -19,7 +19,8 @@ class Solution {
     void solve(TreeNode root) {
         if(root == null) return;
         solve(root.left);
-        cur.right = new TreeNode(root.val);
+        cur.right = root;
+        root.left = null;
         cur = cur.right;
         solve(root.right);
     }
