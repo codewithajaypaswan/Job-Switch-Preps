@@ -1,11 +1,11 @@
 class Solution {
 public:
     int minOperations(vector<string>& logs) {
-        stack<char>st;
+        int cnt = 0;
         for(string s:logs) {
-            if(s[1] == '.' && !st.empty()) st.pop();
-            if(s[0] != '.') st.push(s[1]);
+            if(s[1] == '.' && cnt != 0) cnt--;
+            if(s[0] != '.') cnt++;
         }
-        return st.size();
+        return cnt;
     }
 };
