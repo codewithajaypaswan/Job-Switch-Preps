@@ -1,10 +1,10 @@
 class Solution {
     public int minOperations(String[] logs) {
-        Stack<Character>st = new Stack<>();
+        int cnt = 0;
         for(String s:logs) {
-            if(s.charAt(1) == '.' && !st.isEmpty()) st.pop();
-            if(s.charAt(0) != '.') st.push(s.charAt(0));
+            if(s.charAt(1) == '.' && cnt != 0) cnt--;
+            if(s.charAt(0) != '.') cnt++;
         }
-        return st.size();
+        return cnt;
     }
 }
