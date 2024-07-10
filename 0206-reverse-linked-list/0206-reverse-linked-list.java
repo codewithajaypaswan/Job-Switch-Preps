@@ -9,17 +9,14 @@
  * }
  */
 class Solution {
-    public ListNode solve(ListNode head) {
-        if(head.next == null) return head;
-        ListNode temp = solve(head.next);
-        head.next.next = head;
-        return temp;
-    }
     public ListNode reverseList(ListNode head) {
-        if(head == null) return head;
-        ListNode temp = head;
-        head = solve(head);
-        temp.next = null;
-        return head;
+        ListNode cur = head, prev = null;
+        while(cur != null) {
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        return prev;
     }
 }
