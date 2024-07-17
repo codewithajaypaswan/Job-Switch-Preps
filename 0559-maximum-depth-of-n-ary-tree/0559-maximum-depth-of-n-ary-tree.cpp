@@ -20,6 +20,23 @@ public:
 
 class Solution {
 public:
+    int dfs(Node* root) {
+        if(root == nullptr) return 0;
+        int maxDepth = 0;
+        for(int i=0; i<root->children.size(); i++) {
+            maxDepth = max(maxDepth, dfs(root->children[i]));
+        }
+        return maxDepth + 1;
+    }
+    int maxDepth(Node* root) {
+        return dfs(root);
+    }
+};
+
+/*
+
+class Solution {
+public:
     int ans = 0;
     void dfs(Node* root, int depth) {
         if(root == nullptr) return;
@@ -36,3 +53,5 @@ public:
         return ans;
     }
 };
+
+*/
