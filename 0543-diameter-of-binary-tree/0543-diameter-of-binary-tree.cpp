@@ -25,7 +25,15 @@ public:
         solve1(root->right);
     }
     int diameterOfBinaryTree(TreeNode* root) {
-        solve1(root);
+        // solve1(root);
+        solve2(root);
         return ans;
+    }
+    int solve2(TreeNode* root) {
+        if(!root) return 0;
+        int lh = solve2(root->left);
+        int rh = solve2(root->right);
+        ans = max(ans,lh + rh);
+        return 1 + max(lh, rh);
     }
 };
