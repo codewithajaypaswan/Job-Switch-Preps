@@ -15,7 +15,7 @@ public:
         vector<int>ans;
         TreeNode* cur = root, *last = NULL;
         stack<TreeNode*>st;
-        while(!st.empty() || cur) {
+        while(cur || !st.empty()) {
             if(cur) {
                 st.push(cur);
                 cur = cur->left;
