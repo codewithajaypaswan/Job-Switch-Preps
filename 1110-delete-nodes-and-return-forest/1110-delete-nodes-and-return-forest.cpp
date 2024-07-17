@@ -11,20 +11,20 @@
  */
 class Solution {
 public:
-    unordered_map<int, int>mp;
     vector<TreeNode*>ans;
+    unordered_map<int, int>mp;
     vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
         for(int x:to_delete) {
             mp[x]++;
         }
         if(mp.find(root->val) == mp.end()) ans.push_back(root);
-        dfs(root);
+        solve(root);
         return ans;
     }
-    TreeNode* dfs(TreeNode* root) {
+    TreeNode* solve(TreeNode* root) {
         if(!root) return NULL;
-        root->left = dfs(root->left);
-        root->right = dfs(root->right);
+        root->left = solve(root->left);
+        root->right = solve(root->right);
         if(mp.find(root->val) != mp.end()) {
             if(root->left && mp.find(root->left->val) == mp.end()) {
                 ans.push_back(root->left);
