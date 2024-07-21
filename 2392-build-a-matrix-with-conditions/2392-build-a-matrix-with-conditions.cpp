@@ -1,84 +1,48 @@
 class Solution {
-    
-    /* 1. Checking if cycle is present - If YES, Topological Sort is not possible */
-    vector<char> color;
-    bool dfs(int v, vector<vector<int>>& graph) {
-        color[v] = 1;
-        for (int u : graph[v]) {
-            if (color[u] == 0) {
-                if (dfs(u, graph))
-                    return true;
-            } else if (color[u] == 1) {
-                return true;
+public:
+    vector<int> topological(vector<int>adj[], int k) {
+        vector<int>indegree(k+1, 0);
+        for(int i=1; i<=k; i++) {
+            for(int x:adj[i]) {
+                indegree[x]++;
             }
         }
-        color[v] = 2;
-        return false;
-    }
-    bool find_cycle(vector<vector<int>>& graph, int n) {
-        color.assign(n, 0);
-
-        for (int v = 0; v < n; v++) {
-            if (color[v] == 0 && dfs(v, graph))
-                return true;
+        queue<int>q;
+        for(int i=1; i<=k; i++) {
+            if(indegree[i] == 0) q.push(i);
         }
-        return false;
-    }
-
-    /* 2. Forming the Topological Sort for DAG */
-    vector<bool> visited;
-    void dfs2(int v, vector<vector<int>>& graph, vector<int>& ans) {
-        visited[v] = true;
-        for (int u : graph[v]) {
-            if (!visited[u])
-                dfs2(u, graph, ans);
+        vector<int>ans;
+        while(!q.empty()) {
+            int cur = q.front();
+            q.pop();
+            ans.push_back(cur);
+            for(int x:adj[cur]) {
+                indegree[x]--;
+                if(indegree[x] == 0) q.push(x);
+            } 
         }
-        ans.push_back(v);
+        return ans;
     }
-
-    void topological_sort(vector<vector<int>>& graph, int n, vector<int>& ans) {
-        visited.assign(n, false);
-        ans.clear();
-        for (int i = 0; i < n; ++i) {
-            if (!visited[i])
-                dfs2(i, graph, ans);
-        }
-        reverse(ans.begin(), ans.end());
-    }
-    
-public:
     vector<vector<int>> buildMatrix(int k, vector<vector<int>>& rowConditions, vector<vector<int>>& colConditions) {
-        vector<vector<int>> graph1(k);
-        vector<vector<int>> graph2(k);
-        
+        vector<vector<int>>ans(k, vector<int>(k, 0));
+        vector<int>graph1[k+1], graph2[k+1];
         for(auto x:rowConditions) {
-            graph1[x[0] - 1].push_back(x[1] - 1);
+            graph1[x[0]].push_back(x[1]);
         }
         for(auto x:colConditions) {
-            graph2[x[0] - 1].push_back(x[1] - 1);
+            graph2[x[0]].push_back(x[1]);
         }
-        
-        /* 3. Check if CYCLE present in any of the graphs */
-        if(find_cycle(graph1, k) || find_cycle(graph2, k)) return vector<vector<int>>();
-        
-        /* 4. Forming Topological Sort for the DAGs */
-        vector<int> ans1; vector<int> ans2;
-        
-        topological_sort(graph1, k, ans1);
-        topological_sort(graph2, k, ans2);
-        
-        /* 5. Forming the answer from the rowPosition and colPosition for each element */
-        vector<vector<int>> ans(k, vector<int>(k));
-        
-        map<int, int> m;
-        for(int i = 0; i < k; i++) {
-            m[ans2[i]] = i;
+        vector<vector<int>>res;
+        vector<int>arr1 = topological(graph1, k);
+        vector<int>arr2 = topological(graph2, k);
+        if(arr1.size() != k || arr2.size() != k) return res;
+        map<int,int>mp;
+        for(int i=0; i<arr1.size(); i++) {
+            mp[arr1[i]] = i;
         }
-        
-        for(int i = 0; i < k; i++) {
-            ans[i][m[ans1[i]]] = ans1[i] + 1;
+        for(int i=0; i<arr2.size(); i++) {
+            ans[mp[arr2[i]]][i] = arr2[i];
         }
-        
         return ans;
     }
 };
