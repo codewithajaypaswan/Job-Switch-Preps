@@ -11,22 +11,13 @@
  */
 class Solution {
 public:
-    bool hasPathSum(TreeNode* root, int targetSum) {
-        queue<pair<TreeNode*, int>>q;
+    bool dfs(TreeNode* root, int target) {
         if(!root) return false;
-        q.push({root, targetSum});
-        while(!q.empty()) {
-            auto it = q.front(); q.pop();
-            TreeNode* cur = it.first; 
-            int val = it.second;
-            if(!cur->left && !cur->right && cur->val == val) return true;
-            if(cur->left) {
-                q.push({cur->left, val - cur->val});
-            }
-            if(cur->right) {
-                q.push({cur->right, val - cur->val});
-            }
-        }
-        return false;
+        if(!root->left && !root->right && root->val == target) return true;
+        return dfs(root->left, target - root->val) || dfs(root->right, target - root->val);
+    }
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if(!root) return false;
+        return dfs(root, targetSum);
     }
 };
