@@ -17,7 +17,10 @@ public:
             int x = mapValue(org, mapping);
             vp.push_back({x, org});
         }
-        sort(vp.begin(), vp.end(), cmp);
+        sort(vp.begin(), vp.end(), [&](pair<int, int>&A, pair<int, int>&B) {
+            if(A.first == B.first) return false;
+            else return A.first < B.first;
+        });
         for(auto it:vp) {
             ans.push_back(it.second);
         }
