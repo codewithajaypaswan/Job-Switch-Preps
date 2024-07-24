@@ -5,10 +5,9 @@ class Solution {
         Arrays.fill(ans, -1);
         Stack<Integer>st = new Stack<>();
         Map<Integer, Integer>mp = new HashMap<>();
-        for(int i=0; i<n2; i++) {
-            while(!st.isEmpty() && nums2[st.peek()] < nums2[i]) {
-                mp.put(nums2[st.pop()], nums2[i]);
-            }
+        for(int i=n2-1; i>=0; i--) {
+            while(!st.isEmpty() && nums2[st.peek()] <= nums2[i]) st.pop();
+            if(!st.isEmpty()) mp.put(nums2[i], nums2[st.peek()]);
             st.push(i);
         }
         for(int i=0; i<n1; i++) {
