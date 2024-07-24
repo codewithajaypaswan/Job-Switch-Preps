@@ -5,12 +5,12 @@ public:
         string ans = "";
         for(int i=0; i<s.size(); i++) {
             if(s[i] == '(') {
-                if(open > 0) ans += s[i];
                 open++;
+                if(open > 1) ans += s[i];
             }
             else {
-                if(open > 1) ans += s[i];
                 open--;
+                if(open > 0) ans += s[i];
             }
         }
         return ans;
