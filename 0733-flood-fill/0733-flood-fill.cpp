@@ -2,17 +2,17 @@ class Solution {
 public:
     int dx[4] = {1, 0, -1, 0};
     int dy[4] = {0, 1, 0, -1};
-    void solve(vector<vector<int>>&g, int x, int y, int newColor, int cur) {
-        if(x < 0 || x >= g.size() || y < 0 || y >= g[0].size() || g[x][y] != cur) return;        
-        g[x][y] = newColor;
-        for(int i=0; i<4; i++) {
-            solve(g, x + dx[i], y + dy[i], newColor, cur);
-        }
-    }
-    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
         int cur = image[sr][sc];
-        if(cur == newColor) return image;
-        solve(image, sr, sc, newColor, cur);
+        if(cur == color) return image;
+        dfs(image, sr, sc, color, cur);
         return image;
+    }
+    void dfs(vector<vector<int>>&image, int r, int c, int color, int cur) {
+        if(r < 0 || r >= image.size() || c < 0 || c >= image[0].size() || image[r][c] != cur) return;
+        image[r][c] = color;
+        for(int i=0; i<4; i++) {
+            dfs(image, r + dx[i], c + dy[i], color, cur);
+        }
     }
 };
