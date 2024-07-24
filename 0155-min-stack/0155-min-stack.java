@@ -1,5 +1,39 @@
 class MinStack {
     Stack<Integer>st = new Stack();
+    int minEle = Integer.MAX_VALUE;
+    public MinStack() {
+        
+    }
+    
+    public void push(int val) {
+        if(val <= minEle) {
+            st.push(minEle);
+            minEle = val;
+        }
+        st.push(val);
+    }
+    
+    public void pop() {
+        if(minEle == st.peek()) {
+            st.pop();
+            minEle = st.peek();
+        }
+        st.pop();
+    }
+    
+    public int top() {
+        return st.peek();
+    }
+    
+    public int getMin() {
+        return minEle;
+    }
+}
+
+/*
+
+class MinStack {
+    Stack<Integer>st = new Stack();
     Stack<Integer>min = new Stack();
     public MinStack() {
         
@@ -29,6 +63,9 @@ class MinStack {
         return min.peek();
     }
 }
+
+
+*/
 
 /**
  * Your MinStack object will be instantiated and called as such:
