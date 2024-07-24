@@ -13,8 +13,12 @@ public:
                 ans += s[i];
                 return ans;
             }
-            else if(s[i] >= '2' && s[i] <= '9') len /= (s[i] - '0');
-            else len--;
+            else if(isdigit(s[i])) {
+                len /= (s[i] - '0');
+            }
+            else {
+                len--;
+            }
         }
         return "";
     }
