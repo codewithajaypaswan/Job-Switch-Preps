@@ -10,7 +10,7 @@ public:
             swap(s[i], s[j]);
         }
         reverse(s.begin() + i + 1, s.end());
-        long x = stoll(s);
-        return (x > INT_MAX || x <= n) ? -1 : x;
+        long ans = stoll(s);
+        return (ans > INT_MAX || ans <= n) ? -1 : ans;
     }
 };
