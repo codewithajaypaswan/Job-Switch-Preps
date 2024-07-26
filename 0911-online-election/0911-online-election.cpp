@@ -3,10 +3,10 @@ public:
     unordered_map<int, int>mp;
     vector<int>time;
     TopVotedCandidate(vector<int>& persons, vector<int>& times) {
-        int lead = -1, n = persons.size();
         time = times;
         unordered_map<int, int>count;
-        for(int i=0; i<n; i++) {
+        int lead = -1;
+        for(int i=0; i<persons.size(); i++) {
             count[persons[i]]++;
             if(count[persons[i]] >= count[lead]) {
                 lead = persons[i];
@@ -16,8 +16,8 @@ public:
     }
     
     int q(int t) {
-        auto x = upper_bound(time.begin(), time.end(), t);
-        return mp[*(x-1)];
+        auto x = upper_bound(time.begin(), time.end(), t); // nearest time to valid time
+        return mp[*(x - 1)];
     }
 };
 
