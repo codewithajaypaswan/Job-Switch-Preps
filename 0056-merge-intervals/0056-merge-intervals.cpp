@@ -5,7 +5,10 @@ public:
     }
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
         vector<vector<int>>ans;
-        sort(intervals.begin(), intervals.end(), cmp);
+        sort(intervals.begin(), intervals.end(), [&](vector<int>&A, vector<int>&B) {
+            if(A[0] == B[0]) return A[1] < B[1];
+            else return A[0] < B[0];
+        });
         ans.push_back(intervals[0]);
         int n = intervals.size();
         for(int i=1; i<n; i++) {
