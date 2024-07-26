@@ -13,6 +13,7 @@ public:
         while(low <= high) {
             long mid = low + (high - low)/2;
             long cnt = countZero(mid);
+            // if(cnt == k) return mid;
             if(cnt > k) {
                 high = mid-1;
             }
