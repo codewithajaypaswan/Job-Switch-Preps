@@ -6,7 +6,7 @@ public:
             adj[e[0]][e[1]] = e[2];
             adj[e[1]][e[0]] = e[2];
         }
-        for(int via=0; via < n; via++) {
+        for(int via=0; via<n; via++) {
             for(int i=0; i<n; i++) {
                 for(int j=0; j<n; j++) {
                     if(adj[i][via] == INT_MAX || adj[via][j] == INT_MAX) continue;
@@ -14,11 +14,13 @@ public:
                 }
             }
         }
-        int minCnt = INT_MAX, city = -1;
+        int city, minCnt = INT_MAX;
         for(int i=0; i<n; i++) {
             int cnt = 0;
             for(int j=0; j<n; j++) {
-                if(i != j && adj[i][j] <= distanceThreshold) cnt++;
+                if(i != j && adj[i][j] <= distanceThreshold) {
+                    cnt++;
+                }
             }
             if(cnt <= minCnt) {
                 minCnt = cnt;
