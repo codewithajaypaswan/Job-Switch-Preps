@@ -14,7 +14,9 @@ public:
                 else if(grid[i][j] == 1) cnt++;
             }
         }
+        
         if(cnt == 0) return 0;
+        
         while(!q.empty()) {
             int sz = q.size();
             while(sz--) {
