@@ -4,7 +4,6 @@ public:
         if(color[cur] != 0) return color[cur] == curColor;
         color[cur] = curColor;
         for(int x:adj[cur]) {
-            if(x == parent) continue;
             if(!dfs(adj, x, color, -curColor, cur)) return false;
         }
         return true;
