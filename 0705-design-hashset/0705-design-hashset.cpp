@@ -2,9 +2,9 @@ struct Node {
 public:
     int key;
     Node* next;
-    Node(int k, Node* n) {
+    Node(int k) {
         key = k;
-        next = n;
+        next = NULL;
     }
 };
 class MyHashSet {
@@ -22,7 +22,8 @@ public:
     void add(int key) {
         if(contains(key)) return;
         int hash = findHash(key);
-        Node* node = new Node(key, data[hash]);
+        Node* node = new Node(key);
+        node->next = data[hash];
         data[hash] = node;
     }
     
