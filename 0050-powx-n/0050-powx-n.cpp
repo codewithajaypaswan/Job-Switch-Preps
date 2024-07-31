@@ -1,15 +1,9 @@
 class Solution {
 public:
     double solve(double x, long N) {
-        double ans = 1;
-        while(N > 0) {
-            if(N&1) {
-                ans = ans * x;
-            }
-            N = N/2;
-            x = x * x;
-        }
-        return ans;
+        if(N == 0) return 1;
+        if(N%2 == 0) return solve(x*x, N/2);
+        else return x * solve(x*x, (N-1)/2);
     }
     double myPow(double x, int n) {
         long N = abs(n);
