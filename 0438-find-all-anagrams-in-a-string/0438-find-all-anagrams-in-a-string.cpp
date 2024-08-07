@@ -6,19 +6,14 @@ public:
         vector<int>ans;
         if(m > n) return ans;
         for(int i=0; i<m; i++) {
-            hashS[s[i] - 'a']++;
             hashP[p[i] - 'a']++;
         }
-        int windowStart = 0, windowEnd = m;
-        while(windowEnd < n) {
-            if(hashS == hashP) {
-                ans.push_back(windowStart);
+        for(int high = 0, low = 0; high < n; high++) {
+            hashS[s[high] - 'a']++;
+            if(high - low + 1 == m) {
+                if(hashS == hashP) ans.push_back(low);
+                hashS[s[low++] - 'a']--;
             }
-            hashS[s[windowStart++] - 'a']--;
-            hashS[s[windowEnd++] - 'a']++;
-        }
-        if(hashS == hashP) {
-            ans.push_back(windowStart);
         }
         return ans;
     }
