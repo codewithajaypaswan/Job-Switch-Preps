@@ -10,11 +10,17 @@
  */
 class Solution {
 public:
+    int gcd(int a, int b) {
+        if(b == 0) return a;
+        if(a == 0) return b;
+        if(a > b) return gcd(a-b, b);
+        return gcd(a, b-a);
+    }
     ListNode* insertGreatestCommonDivisors(ListNode* head) {
         if(!head || !head->next) return head;
         ListNode* prev = head, *cur = head->next;
         while(cur != NULL) {
-            int val = __gcd(prev->val, cur->val);
+            int val = gcd(prev->val, cur->val);
             ListNode* next = prev->next;
             prev->next = new ListNode(val);
             prev->next->next = cur;
