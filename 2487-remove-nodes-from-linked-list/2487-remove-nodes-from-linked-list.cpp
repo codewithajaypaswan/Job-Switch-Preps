@@ -11,21 +11,8 @@
 class Solution {
 public:
     ListNode* removeNodes(ListNode* head) {
-        stack<ListNode*>st;
-        ListNode* dummy = new ListNode(1e6);
-        st.push(dummy);
-        dummy->next = head;
-        ListNode* cur = head;
-        while(cur != NULL) {
-            while(!st.empty() && st.top()->val < cur->val) {
-                ListNode* temp = st.top(); st.pop();
-                if(!st.empty()) st.top()->next = temp->next;
-                temp->next = NULL;
-                delete temp;
-            }
-            st.push(cur);
-            cur = cur->next;
-        }
-        return dummy->next;
+        if(!head->next) return head;
+        head->next = removeNodes(head->next);
+        return head->next != NULL && head->val < head->next->val ? head->next : head;
     }
 };
