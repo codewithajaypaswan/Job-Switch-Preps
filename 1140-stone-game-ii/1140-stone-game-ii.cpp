@@ -1,6 +1,11 @@
 class Solution {
 public:
     int dp[2][101][101];
+    int stoneGameII(vector<int>& piles) {
+        memset(dp, -1, sizeof(dp));
+        // 1 -> Alice, 0 -> Bob
+        return solveForAlice(1, 0, 1, piles);
+    }
     int solveForAlice(int person, int ind, int M, vector<int>&piles) {
         if(ind >= piles.size()) return 0;
         if(dp[person][ind][M] != -1) return dp[person][ind][M];
@@ -19,9 +24,5 @@ public:
             }
         }
         return dp[person][ind][M] = ans;
-    }
-    int stoneGameII(vector<int>& piles) {
-        memset(dp, -1, sizeof(dp));
-        return solveForAlice(1, 0, 1, piles);
     }
 };
