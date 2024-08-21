@@ -1,21 +1,17 @@
 class Solution {
 public:
     int countKConstraintSubstrings(string s, int k) {
-        int ans = 0, n = s.size();
-        for(int len = 1; len <= n; len++) {
-            for(int low = 0, high = 0, cnt1 = 0, cnt0 = 0; high < n; high++) {
-                
-                if(s[high] == '0') cnt0++;
-                else cnt1++;
-                
-                if(high - low + 1 == len) {
-                    if(cnt1 <= k || cnt0 <= k) ans++;
-                    
-                    if(s[low] == '0') cnt0--;
-                    else cnt1--;
-                    low++;
-                }
+        int n = s.size(), ans = 0;
+        int cntZero = 0, cntOne = 0;
+        for(int high = 0, low = 0; high < n; high++) {
+            if(s[high] == '1') cntOne++;
+            else cntZero++;
+            while(cntOne > k && cntZero > k) {
+                if(s[low] == '0') cntZero--;
+                else cntOne--;
+                low++;
             }
+            ans += high - low + 1;
         }
         return ans;
     }
