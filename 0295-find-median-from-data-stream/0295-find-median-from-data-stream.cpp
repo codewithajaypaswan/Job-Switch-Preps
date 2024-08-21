@@ -11,32 +11,36 @@ public:
             mx.push(num);
         }
         else if(mx.size() == mn.size()) {
-            if(num > mn.top()) {
-                int x = mn.top(); mn.pop();
+            int x = mn.top(); mn.pop();
+            if(num > x) {
                 mn.push(num);
                 mx.push(x);
             }
             else {
+                mn.push(x);
                 mx.push(num);
             }
         }
         else {
-            if(num < mx.top()) {
-                int x = mx.top(); mx.pop();
+            int x = mx.top(); mx.pop();
+            if(num < x) {
                 mx.push(num);
                 mn.push(x);
             }
             else {
                 mn.push(num);
+                mx.push(x);
             }
         }
     }
     
     double findMedian() {
-        if(mx.size() == mn.size()) {
-            return (double)(mn.top() + mx.top())/2;
+        if((mx.size() + mn.size())%2 == 1) {
+            return (double)mx.top();
         }
-        else return (double)mx.top();
+        else {
+            return (double) (mn.top() + mx.top())/2;
+        }
     }
 };
 
