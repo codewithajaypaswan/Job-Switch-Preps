@@ -3,16 +3,13 @@ public:
     vector<int> resultsArray(vector<int>& nums, int k) {
         int n = nums.size();
         vector<int>ans;
-        for(int i=0; i<=n-k; i++) {
-            int flag = 0;
-            for(int j=i+1; j<i+k; j++) {
-                if(nums[j-1]+1 != nums[j]) {
-                    flag = 1;
-                    break;
-                }
+        for(int i=0, score = 0; i < n; i++) {
+            if(i > 0 && nums[i] == nums[i-1]+1) score++;
+            else score = 0;
+            if(i >= k-1) {
+                if(score >= k-1) ans.push_back(nums[i]);
+                else ans.push_back(-1);
             }
-            if(flag) ans.push_back(-1);
-            else ans.push_back(nums[i+k-1]);
         }
         return ans;
     }
