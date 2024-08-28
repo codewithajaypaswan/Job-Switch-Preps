@@ -20,7 +20,9 @@ public:
         while(i < n && j < m) {
             if(haystack[i] == needle[j]) {
                 i++; j++;
-                if(j == m) return i - m;
+                if(j == m) {
+                    return i - m;
+                }
             }
             else if(j == 0) i++;
             else j = lps[j-1];
