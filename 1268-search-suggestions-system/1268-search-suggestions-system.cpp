@@ -38,10 +38,10 @@ public:
             insert(products[i], root);
         }
         vector<vector<string>>ans;
-        string cur = "";
+        string s = "";
         for(int i=0; i<searchWord.size(); i++) {
-            cur += searchWord[i];
-            ans.push_back(search(cur, root));
+            s += searchWord[i];
+            ans.push_back(search(s, root));
         }
         return ans;
     }
