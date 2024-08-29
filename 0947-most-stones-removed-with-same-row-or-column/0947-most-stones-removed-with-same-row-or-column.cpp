@@ -28,15 +28,15 @@ public:
 class Solution {
 public:
     int removeStones(vector<vector<int>>& stones) {
-        int n = stones.size(), cnt = 0;
-        UnionFind uf(n);
+        int n = stones.size(), ans = 0;
+        UnionFind *uf = new UnionFind(n);
         for(int i=0; i<n; i++) {
-            for(int j=0; j<n; j++) {
+            for(int j=i+1; j<n; j++) {
                 if(stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1]) {
-                    if(uf._union(i, j)) cnt++;
+                    if(uf->_union(i, j)) ans++;
                 }
             }
         }
-        return cnt;
+        return ans;
     }
 };
