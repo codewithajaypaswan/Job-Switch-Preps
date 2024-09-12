@@ -7,6 +7,8 @@ public:
         Node(int key, int val) {
             this->val = val;
             this->key = key;
+            next = NULL;
+            prev = NULL;
         }
     };
     int size = 0;
