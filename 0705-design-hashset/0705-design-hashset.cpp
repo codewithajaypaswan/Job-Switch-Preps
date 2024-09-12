@@ -37,13 +37,14 @@ public:
             return;
         }
         else {
-            while(node->next && node->next->key == key) {
-                Node* temp = node->next;
-                node->next = temp->next;
-                // temp->next = NULL;
-                delete temp;
-                return;
+            while(node->next && node->next->key != key) {
+                node = node->next;
             }
+            Node* temp = node->next;
+            node->next = temp != NULL ? temp->next : NULL;
+            // temp->next = NULL;
+            delete temp;
+            return;
         }
     }
     
