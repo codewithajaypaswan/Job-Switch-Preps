@@ -1,7 +1,7 @@
 class Solution {
     public boolean hasAlternatingBits(int n) {
-        int k = (n>>1);
-        n = n^k;
-        return (n&(n+1)) == 0;
+        long x = n>>1;
+        x = x ^ n;
+        return (x&(x+1)) == 0;
     }
 }
