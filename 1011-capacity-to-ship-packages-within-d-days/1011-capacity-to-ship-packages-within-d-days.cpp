@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool check(int cap, int low, int high, vector<int>&weights, int days_cnt) {
+    bool check(int cap, vector<int>&weights, int days_cnt) {
         int day = 1, sum = 0;
         for(int w:weights) {
             if(w + sum > cap) {
@@ -22,7 +22,7 @@ public:
         int ans = -1;
         while(low <= high) {
             long mid = low + (high - low)/2;
-            if(check(mid, low, high, weights, days)) {
+            if(check(mid, weights, days)) {
                 ans = mid;
                 high = mid-1;
             }
