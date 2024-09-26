@@ -1,15 +1,14 @@
 class MyCalendar {
-    HashMap<Integer, Integer> mp = new HashMap<>();
+    List<int[]> list = new ArrayList<>();
     public MyCalendar() {
         
     }
     
     public boolean book(int start, int end) {
-        for(int first:mp.keySet()) {
-            int second = mp.get(first);
-            if(Math.max(first, start) < Math.min(second, end)) return false;
+        for(int[] event:list) {
+            if(Math.max(start, event[0]) < Math.min(end, event[1])) return false;
         }
-        mp.put(start, end);
+        list.add(new int[]{start, end});
         return true;
     }
 }
