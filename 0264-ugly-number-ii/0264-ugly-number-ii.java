@@ -1,20 +1,18 @@
 class Solution {
     public int nthUglyNumber(int n) {
-        PriorityQueue<Long> pq = new PriorityQueue<>();
-        HashSet<Long> seen = new HashSet<>();
-        
-        pq.add(1L);
-        seen.add(1L);
-        
-        long cur = 1;
-        for (int i = 1; i < n; i++) {
-            cur = pq.poll();
-            if (seen.add(cur * 2)) pq.add(cur * 2);
-            if (seen.add(cur * 3)) pq.add(cur * 3);
-            if (seen.add(cur * 5)) pq.add(cur * 5);
+        if(n==1) return 1;
+        PriorityQueue<Long> pq = new PriorityQueue();
+        pq.add(1l);
+
+        for(long i=1; i<n; i++) {
+            long cur = pq.poll();
+            while(!pq.isEmpty() && pq.peek() == cur) pq.poll();
+
+            pq.add(cur*2);
+            pq.add(cur*3);
+            pq.add(cur*5);
         }
-        
-        return (int) pq.peek().intValue();
+        return pq.poll().intValue();
     }
 }
 
