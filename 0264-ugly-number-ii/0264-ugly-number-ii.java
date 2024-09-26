@@ -14,7 +14,7 @@ class Solution {
             if (seen.add(cur * 5)) pq.add(cur * 5);
         }
         
-        return (int) pq.peek().longValue();
+        return (int) pq.peek().intValue();
     }
 }
 
