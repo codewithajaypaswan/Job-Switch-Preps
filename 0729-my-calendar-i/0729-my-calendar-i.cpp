@@ -1,6 +1,6 @@
 class MyCalendar {
 public:
-    vector<pair<int,int>>vp;
+    vector<pair<int, int>>vp;
     MyCalendar() {
         
     }
