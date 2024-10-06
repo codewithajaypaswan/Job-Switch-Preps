@@ -17,16 +17,17 @@ public:
         }
         return ans;
     }
+    static bool cmp(string &a, string &b) {
+        return a+b > b+a;
+    }
     int maxGoodNumber(vector<int>& nums) {
-        string s1 = decimalToBinary(nums[0]);
-        string s2 = decimalToBinary(nums[1]);
-        string s3 = decimalToBinary(nums[2]);
-        string str1 = s1 + s2 + s3;
-        string str2 = s1 + s3 + s2;
-        string str3 = s2 + s1 + s3;
-        string str4 = s2 + s3 + s1;
-        string str5 = s3 + s1 + s2;
-        string str6 = s3 + s2 + s1;
-        return max({solve(str1), solve(str2), solve(str3), solve(str4), solve(str5), solve(str6)});
+        vector<string>str;
+        for(int x:nums) {
+            str.push_back(decimalToBinary(x));
+        }
+        sort(str.begin(), str.end(), cmp);
+        string s = "";
+        for(int i=0; i<str.size(); i++) s += str[i];
+        return solve(s);
     }
 };
