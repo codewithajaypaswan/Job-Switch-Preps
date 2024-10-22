@@ -28,8 +28,6 @@ public:
         }
         if(v.size() < k) return -1;
         sort(v.rbegin(), v.rend());
-        for(int x:v) cout<<x<<" ";
-        cout<<endl;
         return v[k-1];
     }
 };
