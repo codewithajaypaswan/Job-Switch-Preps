@@ -12,13 +12,14 @@
 class Solution {
 public:
     bool dfs(TreeNode* root1, TreeNode* root2) {
-        if(!root1 && !root2) return true;
-        if(!root1 || !root2 || root1->val != root2->val) return false;
-        bool leftSwap = dfs(root1->left, root2->right);
-        bool rightSwap = dfs(root1->right, root2->left);
-        bool noLeftSwap = dfs(root1->left, root2->left);
-        bool noRightSwap = dfs(root1->right, root2->right);
-        return (leftSwap && rightSwap) || (noLeftSwap && noRightSwap);
+        if(root1 == NULL && root2 == NULL) return true;
+        if(!root1 || !root2) return false;
+        if(root1->val != root2->val) return false;
+        bool noSwapLeft = dfs(root1->left, root2->left);
+        bool noSwapRight = dfs(root1->right, root2->right);
+        bool swapLeft = dfs(root1->left, root2->right);
+        bool swapRight = dfs(root1->right, root2->left);
+        return (noSwapLeft && noSwapRight) || (swapLeft && swapRight);
     }
     bool flipEquiv(TreeNode* root1, TreeNode* root2) {
         return dfs(root1, root2);
