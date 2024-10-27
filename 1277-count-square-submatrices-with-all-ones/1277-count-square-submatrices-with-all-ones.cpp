@@ -8,7 +8,7 @@ public:
                 if(mat[i][j] == 1) {
                     if(i == 0 || j == 0) ans++;
                     else {
-                        mat[i][j] = min({mat[i-1][j], mat[i][j-1], mat[i-1][j-1]}) + 1;
+                        mat[i][j] = min({mat[i-1][j-1], mat[i][j-1], mat[i-1][j]}) + 1;
                         ans += mat[i][j];
                     }
                 }
